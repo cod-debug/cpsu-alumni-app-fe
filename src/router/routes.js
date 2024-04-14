@@ -1,0 +1,99 @@
+const routes = [
+  {
+    path: "/auth",
+    component: () => import("layouts/LoginLayout.vue"),
+    children: [
+      {
+        path: "login",
+        name: "login",
+        meta: {
+          requiresAuth: false,
+        },
+        component: () => import("pages/auth/LoginIndex.vue"),
+      },
+    ],
+  },
+  {
+    path: "/",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import("pages/dashboard/DashboardIndex.vue"),
+      },
+      {
+        path: "dashboard",
+        name: "dashboard",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import("pages/dashboard/DashboardIndex.vue"),
+      },
+      {
+        path: "alumni",
+        meta: {
+          requiresAuth: true,
+        },
+        children: [
+          {
+            name: "alumni",
+            path: "",
+            component: () => import("pages/alumni/AlumniIndex.vue"),
+          },
+          {
+            name: "alumni-create",
+            path: "create",
+            component: () => import("pages/alumni/AlumniCreateUpdate.vue"),
+          },
+        ],
+      },
+      {
+        path: "reports",
+        name: "reports",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import("pages/reports/ReportsIndex.vue"),
+      },
+      {
+        path: "settings",
+        name: "settings",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import("pages/settings/SettingsIndex.vue"),
+      },
+      {
+        path: "notifications",
+        name: "notifications",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import("pages/notifications/NotificationsIndex.vue"),
+      },
+      {
+        path: "message",
+        name: "message",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import("pages/message/MessageIndex.vue"),
+      },
+    ],
+  },
+
+  // Always leave this as last one,
+  // but you can also remove it
+  {
+    path: "/:catchAll(.*)*",
+    component: () => import("pages/ErrorNotFound.vue"),
+  },
+];
+
+export default routes;
