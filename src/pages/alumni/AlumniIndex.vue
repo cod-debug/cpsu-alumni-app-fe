@@ -177,7 +177,7 @@ export default {
             is_loading_count: false,
             count_per_year: null,
             alumni_table: {
-                limit: 10,
+                limit: 5,
                 current_page: 1,
                 max_page: 0,
                 from: 0,
