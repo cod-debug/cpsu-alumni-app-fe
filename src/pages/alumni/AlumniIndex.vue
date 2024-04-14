@@ -191,7 +191,7 @@ export default {
                         align: 'left',
                     },
                     { name: 'avatar', align: 'center', label: 'Photo' },
-                    { name: 'last_name', align: 'center', label: 'Last Name' },
+                    { name: 'last_name', align: 'left', label: 'Last Name' },
                     { name: 'first_name', align: 'left', label: 'First Name' },
                     { name: 'middle_name', align: 'left', label: 'Middle Name' },
                     { name: 'course', align: 'left', label: 'Course' },
@@ -216,11 +216,11 @@ export default {
             let { data, status } = await this.$store.dispatch('alumni/getAlumniList', payload);
 
             if ([200, 201].includes(status)) {
-                this.alumni_table.rows = data.data;
-                this.alumni_table.max_page = data.last_page;
-                this.alumni_table.from = data.from;
-                this.alumni_table.to = data.to;
-                this.alumni_table.total = data.total;
+                this.alumni_table.rows = data.data.data;
+                this.alumni_table.max_page = data.data.last_page;
+                this.alumni_table.from = data.data.from;
+                this.alumni_table.to = data.data.to;
+                this.alumni_table.total = data.data.total;
             } else {
                 this.errors = data.errors;
                 Notify.create({
@@ -249,6 +249,7 @@ export default {
         },
 
         async submitSearch(){
+            this.alumni_table.current_page = 1;
             this.getList();
         },
 
