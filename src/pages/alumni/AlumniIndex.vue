@@ -91,7 +91,7 @@
                                         :props="props"
                                     >
                                         <q-btn label="View" color="accent" rounded size="sm" dense class="q-mx-sm q-px-lg" />
-                                        <q-btn label="Edit" color="primary" rounded size="sm" dense class="q-px-lg" />
+                                        <q-btn label="Edit" :to="{ name: 'alumni-update', params: {id: props.row.id}}" color="primary" rounded size="sm" dense class="q-px-lg" />
                                     </q-td>
                                 </q-tr>
                             </template>
@@ -121,115 +121,23 @@
             </q-card>
             <div class="flex q-my-md no-wrap" style="gap: 1rem;">
                 <div style="width: 140%;">
-                    <q-card>
+                    <q-card style="min-height: 200px;">
                         <q-card-section>
                             <div class="text-h6">Year</div>
                             <div class="row">
-                                <div class="col-4">
+                               <div class="col-md-4 col-lg-4 col-xl-4 col-sm-6" v-for="(item, key) in count_per_year" :key="key" >
                                     <div class="q-px-sm">
-                                    <q-card class="q-my-md">
-                                        <q-card-section>
-                                            <div class="flex items-center" style="gap: 2rem;">
-                                                <div>
-                                                    <div style="font-size: 3em; transform: scaleX(1.5);">
-                                                        <q-icon name="label_important" color="primary" />
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label class="text-normal"><strong>2023</strong></label>
-                                                    <div class="text-caption">200 Graduates</div>
-                                                </div>
-                                            </div>
-                                        </q-card-section>
-                                    </q-card>
-                                    <q-card class="q-my-md">
-                                        <q-card-section>
-                                            <div class="flex items-center" style="gap: 2rem;">
-                                                <div>
-                                                    <div style="font-size: 3em; transform: scaleX(1.5);">
-                                                        <q-icon name="label_important" color="primary" />
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label class="text-normal"><strong>2023</strong></label>
-                                                    <div class="text-caption">200 Graduates</div>
-                                                </div>
-                                            </div>
-                                        </q-card-section>
-                                    </q-card>
+                                        <app-count-per-year :data="{year: item.year_graduated, count: item.count}" />
                                     </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="q-px-sm">
-                                    <q-card class="q-my-md">
-                                        <q-card-section>
-                                            <div class="flex items-center" style="gap: 2rem;">
-                                                <div>
-                                                    <div style="font-size: 3em; transform: scaleX(1.5);">
-                                                        <q-icon name="label_important" color="primary" />
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label class="text-normal"><strong>2023</strong></label>
-                                                    <div class="text-caption">200 Graduates</div>
-                                                </div>
-                                            </div>
-                                        </q-card-section>
-                                    </q-card>
-                                    <q-card class="q-my-md">
-                                        <q-card-section>
-                                            <div class="flex items-center" style="gap: 2rem;">
-                                                <div>
-                                                    <div style="font-size: 3em; transform: scaleX(1.5);">
-                                                        <q-icon name="label_important" color="primary" />
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label class="text-normal"><strong>2023</strong></label>
-                                                    <div class="text-caption">200 Graduates</div>
-                                                </div>
-                                            </div>
-                                        </q-card-section>
-                                    </q-card>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="q-px-sm">
-                                    <q-card class="q-my-md">
-                                        <q-card-section>
-                                            <div class="flex items-center" style="gap: 2rem;">
-                                                <div>
-                                                    <div style="font-size: 3em; transform: scaleX(1.5);">
-                                                        <q-icon name="label_important" color="primary" />
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label class="text-normal"><strong>2023</strong></label>
-                                                    <div class="text-caption">200 Graduates</div>
-                                                </div>
-                                            </div>
-                                        </q-card-section>
-                                    </q-card>
-                                    <q-card class="q-my-md">
-                                        <q-card-section>
-                                            <div class="flex items-center" style="gap: 2rem;">
-                                                <div>
-                                                    <div style="font-size: 3em; transform: scaleX(1.5);">
-                                                        <q-icon name="label_important" color="primary" />
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label class="text-normal"><strong>2023</strong></label>
-                                                    <div class="text-caption">200 Graduates</div>
-                                                </div>
-                                            </div>
-                                        </q-card-section>
-                                    </q-card>
-                                    </div>
-                                </div>
-                               
+                               </div>
                             </div>
                         </q-card-section>
+                            <q-inner-loading
+                                :showing="is_loading_count"
+                                label="Please wait..."
+                                label-class="text-teal"
+                                label-style="font-size: 1.1em"
+                            />
                     </q-card>
                 </div>
                 <div style="width: 60%;">
@@ -242,9 +150,15 @@
                                 </div>
                             </div>
                             <div class="q-py-sm text-center">
-                                <div class="text-h3">2,500</div>
+                                <div class="text-h3">{{ $helper.formatNumber(alumni_table.total) }}</div>
                             </div>
                         </q-card-section>
+                        <q-inner-loading
+                            :showing="is_loading_table"
+                            label="Please wait..."
+                            label-class="text-teal"
+                            label-style="font-size: 1.1em"
+                        />
                     </q-card>
                 </div>
             </div>
@@ -253,13 +167,15 @@
 </template>
 
 <script>
-import { data } from 'autoprefixer';
+import CountPerYear from "components/dashboard/CountPerYear.vue"
 
 export default {
     data: () => {
         return {
             search: "",
             is_loading_table: false,
+            is_loading_count: false,
+            count_per_year: null,
             alumni_table: {
                 limit: 10,
                 current_page: 1,
@@ -318,17 +234,35 @@ export default {
             
             this.is_loading_table = false;
         },
+
+        async getCountPerYear(){
+            try {
+                this.is_loading_count = true;
+                let {data, status} = await this.$store.dispatch('alumni/getCountPerYear');
+                if([200,201].includes(status)){
+                    this.count_per_year = data.data;
+                }
+                this.is_loading_count = false;
+            } catch(e) {
+                console.log(e);
+            }
+        },
+
         async submitSearch(){
             this.getList();
         },
 
         initApp(){
             this.getList();
+            this.getCountPerYear();
         }
     },
 
     mounted(){
         this.initApp();
+    },
+    components: {
+        appCountPerYear: CountPerYear,
     },
 }
 </script>

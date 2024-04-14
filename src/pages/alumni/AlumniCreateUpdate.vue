@@ -5,7 +5,7 @@
             <q-card>
                 <q-card-section>
                     <div class="row justify-between">
-                        <div class="text-h6">Add New Alumni</div>
+                        <div class="text-h6">{{ isUpdate ? 'Update' : 'Add New' }} Alumni</div>
                         <div>
                             <q-btn label="View List" :to="{ name: 'alumni' }" rounded color="secondary" dense
                                 class="q-px-lg q-mx-sm" />
@@ -76,7 +76,7 @@
                                         rounded dense />
                                     <app-validation-output property="zip_code" :errors="errors" />
                                 </div>
-                                <div class="q-py-sm">
+                                <div class="q-py-sm" v-if="!isUpdate">
                                     <q-input outlined v-model="user_data.email" label="Email" bg-color="grey-2" rounded
                                         dense />
                                     <app-validation-output property="email" :errors="errors" />
@@ -114,20 +114,24 @@
                             </div>
                         </div>
                         <div class="row items-center">
-                            <div class="col-md-6 col-sm-12 q-pr-sm row justify-center items-center">
-                                <div class="form-avatar-holder">
-                                    <img src="~assets/images/avatar-placeholder.png" id="previewImg" />
-                                </div>
-                                <div class="q-px-md">
-                                    <div class="select-photo-button text-center">
-                                        <label for="avatarLogo">
-                                            <span class="text-grey-6">Select Photo</span>
-                                            <br />
-                                            <div type="button" rounded dense color="primary" class="upload-photo-btn">
-                                                Upload Photo
-                                            </div>
-                                        </label>
-                                        <input type="file" accept="image/*" style="display: none;" id="avatarLogo" />
+                            <div class="col-md-6 col-sm-12 q-pr-sm">
+                                <div class="flex justify-center items-center" v-if="!isUpdate">
+                                    <div class="form-avatar-holder">
+                                        <img src="~assets/images/avatar-placeholder.png" id="previewImg" />
+                                    </div>
+                                    <div class="q-px-md">
+                                        <div class="select-photo-button text-center">
+                                            <label for="avatarLogo">
+                                                <span class="text-grey-6">Select Photo</span>
+                                                <br />
+                                                <div type="button" rounded dense color="primary"
+                                                    class="upload-photo-btn">
+                                                    Upload Photo
+                                                </div>
+                                            </label>
+                                            <input type="file" accept="image/*" style="display: none;"
+                                                id="avatarLogo" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -138,8 +142,8 @@
                                 </div>
                             </div>
                         </div>
-                        <q-inner-loading :showing="is_submitting" label="Please wait..." label-class="text-teal"
-                            label-style="font-size: 1.1em" />
+                        <q-inner-loading :showing="is_submitting || is_loading" label="Please wait..."
+                            label-class="text-teal" label-style="font-size: 1.1em" />
                     </q-form>
                 </q-card-section>
             </q-card>
@@ -163,7 +167,14 @@ export default {
                 'BSED'
             ],
             is_submitting: false,
+            is_loading: false,
             errors: {},
+            user_id: null,
+        }
+    },
+    computed: {
+        isUpdate() {
+            return this.$route.params.id ? true : false;
         }
     },
     methods: {
@@ -173,6 +184,11 @@ export default {
                 let formData = this.$helper.jsonToFormData(this.user_data);
                 this.is_submitting = true;
                 let endpoint = 'alumni/registerAlumni';
+
+                if (this.isUpdate) {
+                    endpoint = 'alumni/updateAlumni';
+                    formData = this.user_data;
+                }
 
                 let { data, status } = await this.$store.dispatch(endpoint, formData);
 
@@ -201,6 +217,35 @@ export default {
                 console.log(e);
             }
 
+        },
+        async getOneAlumni() {
+            try {
+                let user_id = this.$route.params.id;
+                this.is_loading = true;
+                let { data, status } = await this.$store.dispatch('alumni/getOne', user_id);
+
+                if ([200, 201].includes(status)) {
+                    this.user_data = data.data;
+                } else {
+                    Notify.create({
+                        message: data.message,
+                        position: 'top-right',
+                        color: 'red-8',
+                        timeout: 3000,
+                    })
+                    this.$router.push({ name: 'alumni' });
+                }
+                this.is_loading = false;
+            } catch (e) {
+                console.log(e);
+            }
+
+        },
+
+        initApp() {
+            if (this.isUpdate) {
+                this.getOneAlumni();
+            }
         }
     },
 
@@ -229,17 +274,19 @@ export default {
         //     "avatar": "",
         //     "status": "active"
         // }
+        if (!this.isUpdate) {
+            document.getElementById('avatarLogo').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
 
-        document.getElementById('avatarLogo').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                document.getElementById('previewImg').src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-            vm.user_data.avatar = file;
-        });
+                reader.onload = function (e) {
+                    document.getElementById('previewImg').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+                vm.user_data.avatar = file;
+            });
+        }
+        vm.initApp();
     },
 
     components: {

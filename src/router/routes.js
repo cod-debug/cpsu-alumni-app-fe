@@ -51,6 +51,11 @@ const routes = [
             path: "create",
             component: () => import("pages/alumni/AlumniCreateUpdate.vue"),
           },
+          {
+            name: "alumni-update",
+            path: "update/:id",
+            component: () => import("pages/alumni/AlumniCreateUpdate.vue"),
+          },
         ],
       },
       {
