@@ -167,7 +167,7 @@
 </template>
 
 <script>
-import CountPerYear from "components/dashboard/CountPerYear.vue"
+import CountPerYear from "components/alumni/CountPerYear.vue"
 
 export default {
     data: () => {

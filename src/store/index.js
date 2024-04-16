@@ -2,6 +2,7 @@ import { store } from "quasar/wrappers";
 import { createStore } from "vuex";
 import auth from "./auth";
 import alumni from "./alumni";
+import admin from "./admin";
 
 // import example from './module-example'
 
@@ -20,6 +21,7 @@ export default store(function (/* { ssrContext } */) {
       // example
       auth,
       alumni,
+      admin,
     },
 
     // enable strict mode (adds overhead!)

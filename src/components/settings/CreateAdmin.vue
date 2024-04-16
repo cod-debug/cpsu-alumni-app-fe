@@ -1,15 +1,10 @@
 <template>
-    <q-page class="q-pt-xl q-px-md">
-        <div class="text-h5">ALUMNI</div>
+    <q-page class="q-pt-sm">
         <div class="q-my-md">
             <q-card>
                 <q-card-section>
                     <div class="row justify-between">
-                        <div class="text-h6">{{ isUpdate ? 'Update' : 'Add New' }} Alumni</div>
-                        <div>
-                            <q-btn label="View List" :to="{ name: 'alumni' }" rounded color="secondary" dense
-                                class="q-px-lg q-mx-sm" />
-                        </div>
+                        <div class="text-h6">{{ isUpdate ? 'Update' : 'Add New' }} User Form</div>
                     </div>
                 </q-card-section>
                 <q-card-section class="q-px-xl">
@@ -17,8 +12,8 @@
                         <div>
                             <strong>Personal Information</strong>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12 q-pr-sm">
+                        <div class="flex justify-between" style="gap: 1rem;">
+                            <div style="flex-grow: 1;">
                                 <div class="q-py-sm">
                                     <q-input outlined v-model="user_data.last_name" label="Last Name" bg-color="grey-2"
                                         rounded dense />
@@ -35,6 +30,13 @@
                                     <app-validation-output property="middle_name" :errors="errors" />
                                 </div>
                                 <div class="q-py-sm">
+                                    <q-input outlined v-model="user_data.email" label="Email" bg-color="grey-2" rounded
+                                        dense />
+                                    <app-validation-output property="email" :errors="errors" />
+                                </div>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <div class="q-py-sm">
                                     <q-select outlined v-model="user_data.gender" label="Gender" bg-color="grey-2"
                                         :options="['Male', 'Female']" rounded dense />
                                     <app-validation-output property="gender" :errors="errors" />
@@ -50,90 +52,50 @@
                                     <app-validation-output property="contact_number" :errors="errors" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12 q-pl-sm">
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.street" label="Street" bg-color="grey-2"
-                                        rounded dense />
-                                    <app-validation-output property="street" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.barangay" label="Barangay" bg-color="grey-2"
-                                        rounded dense />
-                                    <app-validation-output property="barangay" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.municipality" label="Municipality / City"
-                                        bg-color="grey-2" rounded dense />
-                                    <app-validation-output property="municipality" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.province" label="Province" bg-color="grey-2"
-                                        rounded dense />
-                                    <app-validation-output property="province" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.zip_code" label="Zip Code" bg-color="grey-2"
-                                        rounded dense />
-                                    <app-validation-output property="zip_code" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm" v-if="!isUpdate">
-                                    <q-input outlined v-model="user_data.email" label="Email" bg-color="grey-2" rounded
-                                        dense />
-                                    <app-validation-output property="email" :errors="errors" />
-                                </div>
-                            </div>
                         </div>
 
                         <div class="q-pt-lg">
-                            <strong>Educational and Work</strong>
+                            <strong>Credentials</strong>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12 q-pr-sm">
+                        <div class="flex justify-between" style="gap: 1rem;">
+                            <div style="flex-grow: 1;">
                                 <div class="q-py-sm">
-                                    <q-select outlined v-model="user_data.course" label="Course" bg-color="grey-2"
-                                        :options="course_list" rounded dense />
-                                    <app-validation-output property="course" :errors="errors" />
+                                    <q-input outlined v-model="user_data.username" label="Username" bg-color="grey-2"
+                                        rounded dense />
+                                    <app-validation-output property="username" :errors="errors" />
                                 </div>
                                 <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.work" label="Work" bg-color="grey-2" rounded
-                                        dense />
-                                    <app-validation-output property="work" :errors="errors" />
+                                    <q-input outlined v-model="user_data.password" label="Password" bg-color="grey-2"
+                                        rounded dense type="password" />
+                                    <app-validation-output property="password" :errors="errors" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12 q-pr-sm">
+                            <div style="flex-grow: 1;">
                                 <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.year_graduated" label="Year Graduated"
-                                        bg-color="grey-2" rounded dense />
-                                    <app-validation-output property="year_graduated" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input v-if="user_data.work" outlined v-model="user_data.work_location"
-                                        label="Location" bg-color="grey-2" rounded dense />
-                                    <app-validation-output property="work_location" :errors="errors" />
+                                    <div class="flex justify-center items-center" v-if="!isUpdate">
+                                        <div class="form-avatar-holder">
+                                            <img src="~assets/images/avatar-placeholder.png" id="previewImg" />
+                                        </div>
+                                        <div class="q-px-md">
+                                            <div class="select-photo-button text-center">
+                                                <label for="avatarLogo">
+                                                    <span class="text-grey-6">Select Photo</span>
+                                                    <br />
+                                                    <div type="button" rounded dense color="primary"
+                                                        class="upload-photo-btn">
+                                                        Upload Photo
+                                                    </div>
+                                                </label>
+                                                <input type="file" accept="image/*" style="display: none;"
+                                                    id="avatarLogo" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row items-center">
                             <div class="col-md-6 col-sm-12 q-pr-sm">
-                                <div class="flex justify-center items-center" v-if="!isUpdate">
-                                    <div class="form-avatar-holder">
-                                        <img src="~assets/images/avatar-placeholder.png" id="previewImg" />
-                                    </div>
-                                    <div class="q-px-md">
-                                        <div class="select-photo-button text-center">
-                                            <label for="avatarLogo">
-                                                <span class="text-grey-6">Select Photo</span>
-                                                <br />
-                                                <div type="button" rounded dense color="primary"
-                                                    class="upload-photo-btn">
-                                                    Upload Photo
-                                                </div>
-                                            </label>
-                                            <input type="file" accept="image/*" style="display: none;"
-                                                id="avatarLogo" />
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-md-6 col-sm-12 q-pr-sm">
                                 <div class="q-py-sm text-right">
@@ -183,10 +145,10 @@ export default {
                 this.user_data.employment_status = this.user_data.work ? "employed" : "unemployed";
                 let formData = this.$helper.jsonToFormData(this.user_data);
                 this.is_submitting = true;
-                let endpoint = 'alumni/registerAlumni';
+                let endpoint = 'admin/registerAdmin';
 
                 if (this.isUpdate) {
-                    endpoint = 'alumni/updateAlumni';
+                    endpoint = 'admin/updateAdmin';
                     formData = this.user_data;
                 }
 
@@ -199,10 +161,11 @@ export default {
                         type: 'positive',
                         timeout: 3000,
                     });
-                    this.$router.push({ name: 'alumni' });
+                    this.user_data = {};
+                    this.errors = {};
+                    this.$emit('saved');
                     this.is_submitting = false;
                 } else {
-                    console.log(data);
                     this.errors = data.errors;
                     Notify.create({
                         message: data.message,
@@ -222,7 +185,7 @@ export default {
             try {
                 let user_id = this.$route.params.id;
                 this.is_loading = true;
-                let { data, status } = await this.$store.dispatch('alumni/getOne', user_id);
+                let { data, status } = await this.$store.dispatch('admin/getOne', user_id);
 
                 if ([200, 201].includes(status)) {
                     this.user_data = data.data;
@@ -253,27 +216,22 @@ export default {
         let vm = this;
 
         // gn butang ko lang para di kapoy mag type while ga test haha
-        vm.user_data = {
-            "first_name": "Roy",
-            "middle_name": "Gualdrapa",
-            "last_name": "Duenas",
-            "gender": "Male",
-            "birthdate": "1999-6-13",
-            "contact_number": "+639633205624",
-            "street": "Purok Santan",
-            "barangay": "Manalad",
-            "municipality": "Ilog",
-            "province": "Negros Occidental",
-            "zip_code": "6109",
-            "email": "quensed@gmail.com",
-            "course": "BSIT",
-            "year_graduated": "2019",
-            "employment_status": "employed",
-            "work": "Web Developer",
-            "work_location": "Ingenuiti",
-            "avatar": "",
-            "status": "active"
-        }
+        // vm.user_data = {
+        //     "first_name": "Roy",
+        //     "middle_name": "Gualdrapa",
+        //     "last_name": "Duenas",
+        //     "gender": "Male",
+        //     "birthdate": "1999-6-13",
+        //     "contact_number": "+639633205624"
+        //     "email": "quensed@gmail.com",
+        //     "course": "BSIT",
+        //     "year_graduated": "2019",
+        //     "employment_status": "employed",
+        //     "work": "Web Developer",
+        //     "work_location": "Ingenuiti",
+        //     "avatar": "",
+        //     "status": "active"
+        // }
         if (!this.isUpdate) {
             document.getElementById('avatarLogo').addEventListener('change', function (event) {
                 const file = event.target.files[0];
