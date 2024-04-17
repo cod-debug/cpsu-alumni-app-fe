@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 import auth from "./auth";
 import alumni from "./alumni";
 import admin from "./admin";
+import chats from "./chats";
 
 // import example from './module-example'
 
@@ -22,6 +23,7 @@ export default store(function (/* { ssrContext } */) {
       auth,
       alumni,
       admin,
+      chats,
     },
 
     // enable strict mode (adds overhead!)

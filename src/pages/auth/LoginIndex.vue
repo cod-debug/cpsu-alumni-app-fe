@@ -76,6 +76,7 @@ export default {
                     type: 'positive',
                     timeout: 3000,
                 });
+                localStorage.setItem('user_data', JSON.stringify(data.data));
                 localStorage.setItem('token', data.token);
                 this.$router.push({ name: "dashboard" })
                 this.errors = null;
