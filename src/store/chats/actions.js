@@ -45,6 +45,25 @@ export const getChats = async ({ commit }, payload) => {
   return res;
 };
 
+export const getAllChatsByUser = async ({ commit }, payload) => {
+  let res = {};
+  headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+
+  try {
+    res = await axios({
+      method: "get",
+      url: `${API_BASE_URL}/${prefix}/message/by-user`,
+      params: payload,
+      headers: headers,
+    });
+  } catch (e) {
+    // // console.log(e);
+    res.data = e.response.data;
+    res.status = e.response.status;
+  }
+  return res;
+};
+
 export const send = async ({ commit }, payload) => {
   let res = {};
   headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
@@ -52,7 +71,7 @@ export const send = async ({ commit }, payload) => {
   try {
     res = await axios({
       method: "post",
-      url: `${API_BASE_URL}/${prefix}/nessage/send`,
+      url: `${API_BASE_URL}/${prefix}/message/send`,
       data: payload,
       headers: headers,
     });
