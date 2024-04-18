@@ -1,7 +1,7 @@
 <template>
     <q-page class="q-pt-xl q-px-md">
         <div class="text-h5">MESSAGE</div>
-        <q-card>
+        <q-card class="q-my-md">
             <q-card-section class="q-pa-none">
                 <div class="flex" style="height: 80vh;">
                     <div style="width: 250px; height: 100%; overflow: auto; border-right: 1px solid #dadada;">
@@ -12,7 +12,7 @@
                             label-style="font-size: 1.1em"
                         />
                         <q-card v-for="(item, key) in chats" :key="key" flat
-                            style="border-bottom: 1px solid lightgray; cursor: pointer;" square @click="openChat(item)">
+                            style="border-bottom: 1px solid #f3f3f3; cursor: pointer;" square @click="openChat(item)">
                             <q-card-section class="q-py-sm">
                                 <div class="flex items-center" style="gap: 1rem;">
                                     <div class="table-avatar-holder"
@@ -27,6 +27,9 @@
                                         {{ item.last_name }}
                                     </div>
                                 </div>
+                                <small class="text-grey-6 text-right absolute" style="bottom: 5px; right: 5px;">
+                                    {{ item.last_message ? `last chat: ${$helper.timeSince(item.last_message.created_at)}` : ''}}
+                                </small>
                             </q-card-section>
                         </q-card>
                         <button @click="showMore()" :disabled="last_page <= 1"
@@ -96,7 +99,7 @@
                                     <q-input v-model="message" label="Write message" class="q-px-sm"
                                         :disable="is_submitting">
                                         <template v-slot:append>
-                                            <q-btn flat>
+                                            <q-btn flat @click="sendMessage()">
                                                 <q-icon name="send" />
                                             </q-btn>
                                         </template>
@@ -104,8 +107,14 @@
                                 </q-form>
                             </div>
                         </div>
-                        <div class="q-pa-md text-accent" v-else-if="chats.length > 0">
-                            Select a user to start conversation
+                        <div class="q-pa-md relative" v-else-if="chats.length > 0" style="height: 100%;">
+                            <div class="flex relative justify-center items-center" style="height: 100%;">
+                                <div class="text-center text-h4 text-green-6">
+                                    <q-icon name="chat" class="text-h2" />
+                                    <br />
+                                    Select user to start a conversation.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,116 +1,114 @@
 <template>
-    <q-page class="q-pt-sm">
-        <div class="q-my-md">
-            <q-card>
-                <q-card-section>
-                    <div class="row justify-between">
-                        <div class="text-h6">{{ isUpdate ? 'Update' : 'Add New' }} User Form</div>
+    <div class="q-my-md">
+        <q-card>
+            <q-card-section>
+                <div class="row justify-between">
+                    <div class="text-h6">{{ isUpdate ? 'Update' : 'Add New' }} User Form</div>
+                </div>
+            </q-card-section>
+            <q-card-section class="q-px-xl">
+                <q-form @submit.prevent="submitForm">
+                    <div>
+                        <strong>Personal Information</strong>
                     </div>
-                </q-card-section>
-                <q-card-section class="q-px-xl">
-                    <q-form @submit.prevent="submitForm">
-                        <div>
-                            <strong>Personal Information</strong>
-                        </div>
-                        <div class="flex justify-between" style="gap: 1rem;">
-                            <div style="flex-grow: 1;">
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.last_name" label="Last Name" bg-color="grey-2"
-                                        rounded dense />
-                                    <app-validation-output property="last_name" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.first_name" label="First Name"
-                                        bg-color="grey-2" rounded dense />
-                                    <app-validation-output property="first_name" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.middle_name" label="Middle Name"
-                                        bg-color="grey-2" rounded dense />
-                                    <app-validation-output property="middle_name" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.email" label="Email" bg-color="grey-2" rounded
-                                        dense />
-                                    <app-validation-output property="email" :errors="errors" />
-                                </div>
+                    <div class="flex justify-between" style="gap: 1rem;">
+                        <div style="flex-grow: 1;">
+                            <div class="q-py-sm">
+                                <q-input outlined v-model="user_data.last_name" label="Last Name" bg-color="grey-2"
+                                    rounded dense />
+                                <app-validation-output property="last_name" :errors="errors" />
                             </div>
-                            <div style="flex-grow: 1;">
-                                <div class="q-py-sm">
-                                    <q-select outlined v-model="user_data.gender" label="Gender" bg-color="grey-2"
-                                        :options="['Male', 'Female']" rounded dense />
-                                    <app-validation-output property="gender" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.birthdate" label="Birthdate" stack-label
-                                        type="date" bg-color="grey-2" rounded dense />
-                                    <app-validation-output property="birthdate" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.contact_number" label="Contact Number"
-                                        bg-color="grey-2" rounded dense />
-                                    <app-validation-output property="contact_number" :errors="errors" />
-                                </div>
+                            <div class="q-py-sm">
+                                <q-input outlined v-model="user_data.first_name" label="First Name"
+                                    bg-color="grey-2" rounded dense />
+                                <app-validation-output property="first_name" :errors="errors" />
+                            </div>
+                            <div class="q-py-sm">
+                                <q-input outlined v-model="user_data.middle_name" label="Middle Name"
+                                    bg-color="grey-2" rounded dense />
+                                <app-validation-output property="middle_name" :errors="errors" />
+                            </div>
+                            <div class="q-py-sm">
+                                <q-input outlined v-model="user_data.email" label="Email" bg-color="grey-2" rounded
+                                    dense />
+                                <app-validation-output property="email" :errors="errors" />
                             </div>
                         </div>
+                        <div style="flex-grow: 1;">
+                            <div class="q-py-sm">
+                                <q-select outlined v-model="user_data.gender" label="Gender" bg-color="grey-2"
+                                    :options="['Male', 'Female']" rounded dense />
+                                <app-validation-output property="gender" :errors="errors" />
+                            </div>
+                            <div class="q-py-sm">
+                                <q-input outlined v-model="user_data.birthdate" label="Birthdate" stack-label
+                                    type="date" bg-color="grey-2" rounded dense />
+                                <app-validation-output property="birthdate" :errors="errors" />
+                            </div>
+                            <div class="q-py-sm">
+                                <q-input outlined v-model="user_data.contact_number" label="Contact Number"
+                                    bg-color="grey-2" rounded dense />
+                                <app-validation-output property="contact_number" :errors="errors" />
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="q-pt-lg">
-                            <strong>Credentials</strong>
-                        </div>
-                        <div class="flex justify-between" style="gap: 1rem;">
-                            <div style="flex-grow: 1;">
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.username" label="Username" bg-color="grey-2"
-                                        rounded dense />
-                                    <app-validation-output property="username" :errors="errors" />
-                                </div>
-                                <div class="q-py-sm">
-                                    <q-input outlined v-model="user_data.password" label="Password" bg-color="grey-2"
-                                        rounded dense type="password" />
-                                    <app-validation-output property="password" :errors="errors" />
-                                </div>
+                    <div class="q-pt-lg">
+                        <strong>Credentials</strong>
+                    </div>
+                    <div class="flex justify-between" style="gap: 1rem;">
+                        <div style="flex-grow: 1;">
+                            <div class="q-py-sm">
+                                <q-input outlined v-model="user_data.username" label="Username" bg-color="grey-2"
+                                    rounded dense />
+                                <app-validation-output property="username" :errors="errors" />
                             </div>
-                            <div style="flex-grow: 1;">
-                                <div class="q-py-sm">
-                                    <div class="flex justify-center items-center" v-if="!isUpdate">
-                                        <div class="form-avatar-holder">
-                                            <img src="~assets/images/avatar-placeholder.png" id="previewImg" />
-                                        </div>
-                                        <div class="q-px-md">
-                                            <div class="select-photo-button text-center">
-                                                <label for="avatarLogo">
-                                                    <span class="text-grey-6">Select Photo</span>
-                                                    <br />
-                                                    <div type="button" rounded dense color="primary"
-                                                        class="upload-photo-btn">
-                                                        Upload Photo
-                                                    </div>
-                                                </label>
-                                                <input type="file" accept="image/*" style="display: none;"
-                                                    id="avatarLogo" />
-                                            </div>
+                            <div class="q-py-sm">
+                                <q-input outlined v-model="user_data.password" label="Password" bg-color="grey-2"
+                                    rounded dense type="password" />
+                                <app-validation-output property="password" :errors="errors" />
+                            </div>
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <div class="q-py-sm">
+                                <div class="flex justify-center items-center" v-if="!isUpdate">
+                                    <div class="form-avatar-holder">
+                                        <img src="~assets/images/avatar-placeholder.png" id="previewImg" />
+                                    </div>
+                                    <div class="q-px-md">
+                                        <div class="select-photo-button text-center">
+                                            <label for="avatarLogo">
+                                                <span class="text-grey-6">Select Photo</span>
+                                                <br />
+                                                <div type="button" rounded dense color="primary"
+                                                    class="upload-photo-btn">
+                                                    Upload Photo
+                                                </div>
+                                            </label>
+                                            <input type="file" accept="image/*" style="display: none;"
+                                                id="avatarLogo" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row items-center">
-                            <div class="col-md-6 col-sm-12 q-pr-sm">
-                            </div>
-                            <div class="col-md-6 col-sm-12 q-pr-sm">
-                                <div class="q-py-sm text-right">
-                                    <q-btn color="secondary" label="Save" rounded class="q-px-lg q-py-sm"
-                                        type="submit" />
-                                </div>
+                    </div>
+                    <div class="row items-center">
+                        <div class="col-md-6 col-sm-12 q-pr-sm">
+                        </div>
+                        <div class="col-md-6 col-sm-12 q-pr-sm">
+                            <div class="q-py-sm text-right">
+                                <q-btn color="secondary" label="Save" rounded class="q-px-lg q-py-sm"
+                                    type="submit" />
                             </div>
                         </div>
-                        <q-inner-loading :showing="is_submitting || is_loading" label="Please wait..."
-                            label-class="text-teal" label-style="font-size: 1.1em" />
-                    </q-form>
-                </q-card-section>
-            </q-card>
-        </div>
-    </q-page>
+                    </div>
+                    <q-inner-loading :showing="is_submitting || is_loading" label="Please wait..."
+                        label-class="text-teal" label-style="font-size: 1.1em" />
+                </q-form>
+            </q-card-section>
+        </q-card>
+    </div>
 </template>
 
 <script>
