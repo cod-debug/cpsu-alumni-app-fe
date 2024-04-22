@@ -10,22 +10,21 @@
             <div class="col-md-4 q-pl-md">
             <q-card>
                 <q-card-section>
+                    
+                    <q-inner-loading
+                                :showing="is_loading_messages"
+                                label="Please wait..."
+                                label-class="text-teal"
+                                label-style="font-size: 1.1em"
+                            />
                     <div class="row justify-between items-center">
                         <div class="text-h6">Message</div>
                         <div class="text-h5 text-accent">
                             <q-icon name="more_horiz" />
                         </div>
                     </div>
-                    <app-mini-message avatar="R" name="Roy Duenas" message="This is a sample message only..."
-                        time_ago="5mins ago" />
-                    <q-separator />
-                    <app-mini-message avatar="J" name="Juliane Faith" message="This is a sample message only..."
-                        time_ago="5mins ago" />
-                    <q-separator />
-                    <app-mini-message avatar="J" name="Juliane Faith" message="This is a sample message only..."
-                        time_ago="5mins ago" />
-                    <q-separator />
-                    <app-mini-message avatar="J" name="Juliane Faith" message="This is a sample message only..."
+                    
+                    <app-mini-message v-for="(item, key) in messages" :key="key" :avatar="item.avatar_url" :name="`${item.sender.first_name} ${item.sender.last_name}`" :message="`${item.message}`"
                         time_ago="5mins ago" />
                     <q-separator />
                     <div class="q-pt-md text-center">
@@ -44,6 +43,9 @@ import MiniMessage from 'src/components/message/MiniMessage.vue';
 export default {
     data: () => {
         return {
+            user_data: JSON.parse(localStorage.getItem('user_data')),
+            is_loading_messages: false,
+            messages: [],
             chartOptions: {
                 chart: {
                     height: 350,
@@ -110,7 +112,23 @@ export default {
             }
         }
     },
+    methods: {
+        async getReceivedMessages(){
+            let payload = {
+                id: this.user_data.user_id
+            }
+
+            this.is_loading_messages = true;
+            let { data, status } = await this.$store.dispatch('chats/getReceivedMessages', payload);
+
+            if([200, 201].includes(status)){
+                this.messages = data.data;
+            }
+            this.is_loading_messages = false;
+        },
+    },
     mounted() {
+        this.getReceivedMessages();
         var chart = new ApexCharts(document.querySelector("#chart"), this.chartOptions);
 
         chart.render();

@@ -2,8 +2,8 @@
     <div class="row items-center" style="gap: 0.5rem;">
         <div class="q-my-md">
             <div style="width: 40px; aspect-ratio: 1/1; border-radius: 50%;"
-                class="text-h5 flex items-center justify-center bg-primary text-white">
-                {{ avatar }}
+                class="text-h5 flex items-center justify-center bg-primary text-white overflow-hidden">
+                <img :src="avatar" v-if="avatar" style="width: 100%;" />
             </div>
         </div>
         <div class="col-grow">
@@ -11,7 +11,7 @@
                 <span>{{ name }}</span>
                 <div class="text-caption" style="color: lightslategray;">{{ time_ago }}</div>
             </div>
-            <div class="text-caption text-secondary" style="max-width: 100%;">"{{ message }}"</div>
+            <div class="text-caption text-secondary" style="max-width: 100%; overflow: hidden;">"{{ message }}"</div>
         </div>
     </div>
 </template>

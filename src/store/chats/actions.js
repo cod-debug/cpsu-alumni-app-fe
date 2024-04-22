@@ -64,6 +64,24 @@ export const getAllChatsByUser = async ({ commit }, payload) => {
   return res;
 };
 
+export const getReceivedMessages = async ({ commit }, payload) => {
+  let res = {};
+  headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+
+  try {
+    res = await axios({
+      method: "get",
+      url: `${API_BASE_URL}/${prefix}/message/by-user/received/${payload.id}`,
+      headers: headers,
+    });
+  } catch (e) {
+    // // console.log(e);
+    res.data = e.response.data;
+    res.status = e.response.status;
+  }
+  return res;
+};
+
 export const send = async ({ commit }, payload) => {
   let res = {};
   headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
