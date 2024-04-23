@@ -253,27 +253,28 @@ export default {
         let vm = this;
 
         // gn butang ko lang para di kapoy mag type while ga test haha
-        vm.user_data = {
-            "first_name": "Roy",
-            "middle_name": "Gualdrapa",
-            "last_name": "Duenas",
-            "gender": "Male",
-            "birthdate": "1999-6-13",
-            "contact_number": "+639633205624",
-            "street": "Purok Santan",
-            "barangay": "Manalad",
-            "municipality": "Ilog",
-            "province": "Negros Occidental",
-            "zip_code": "6109",
-            "email": "quensed@gmail.com",
-            "course": "BSIT",
-            "year_graduated": "2019",
-            "employment_status": "employed",
-            "work": "Web Developer",
-            "work_location": "Ingenuiti",
-            "avatar": "",
-            "status": "active"
-        }
+        
+        // vm.user_data = {
+        //     "first_name": "Roy",
+        //     "middle_name": "Gualdrapa",
+        //     "last_name": "Duenas",
+        //     "gender": "Male",
+        //     "birthdate": "1999-6-13",
+        //     "contact_number": "+639633205624",
+        //     "street": "Purok Santan",
+        //     "barangay": "Manalad",
+        //     "municipality": "Ilog",
+        //     "province": "Negros Occidental",
+        //     "zip_code": "6109",
+        //     "email": "quensed@gmail.com",
+        //     "course": "BSIT",
+        //     "year_graduated": "2019",
+        //     "employment_status": "employed",
+        //     "work": "Web Developer",
+        //     "work_location": "Ingenuiti",
+        //     "avatar": "",
+        //     "status": "active"
+        // }
         if (!this.isUpdate) {
             document.getElementById('avatarLogo').addEventListener('change', function (event) {
                 const file = event.target.files[0];

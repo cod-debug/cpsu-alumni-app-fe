@@ -58,7 +58,7 @@ export default {
                 colors: ["#5669cc"],
                 series: [
                     {
-                        name: "Last Year",
+                        name: "Graduates",
                         data: []
                     }
                 ],
@@ -107,7 +107,7 @@ export default {
                     offsetX: 40,
                 },
                 markers: {
-                    size: 5
+                    size: 6
                 }
             }
         }

@@ -52,9 +52,7 @@
                                         <q-td key="action" :props="props">
                                             <q-btn label="View" color="accent" rounded size="sm" dense
                                                 class="q-mx-sm q-px-lg" />
-                                            <q-btn label="Edit"
-                                                :to="{ name: 'alumni-update', params: { id: props.row.id } }"
-                                                color="primary" rounded size="sm" dense class="q-px-lg" />
+                                            <q-btn label="Edit" @click="updateUser(props.row)" color="primary" rounded size="sm" dense class="q-px-lg" />
                                         </q-td>
                                     </q-tr>
                                 </template>
@@ -81,7 +79,10 @@
             </div>
         </div>
         <div>
-            <app-create-admin @saved="getList()" />
+            <app-create-admin @saved="saved()" 
+            @cancelled="cancelled()"
+            :selected_user="selected_user" 
+            :is_update="is_update" />
         </div>
     </q-page>
 </template>
@@ -95,6 +96,8 @@ export default {
         return {
             search: "",
             is_loading_table: false,
+            is_update: false,
+            selected_user: null,
             admin_table: {
                 limit: 5,
                 current_page: 1,
@@ -160,8 +163,22 @@ export default {
             this.getList();
         },
 
+        saved(){
+            this.getList();
+            this.selected_user = {};
+            this.is_update = false;
+        },
+        cancelled(){
+            this.selected_user = {};
+            this.is_update = false;
+        },
         initApp() {
             this.getList();
+        },
+
+        updateUser(user){
+            this.selected_user = user;
+            this.is_update = true;
         }
     },
 
