@@ -25,7 +25,7 @@
                     </div>
                     
                     <app-mini-message v-for="(item, key) in messages" :key="key" :avatar="item.avatar_url" :name="`${item.sender.first_name} ${item.sender.last_name}`" :message="`${item.message}`"
-                        time_ago="5mins ago" />
+                        :time_ago="$helper.timeSince(item.created_at)" />
                     <q-separator />
                     <div class="q-pt-md text-center">
                         <q-btn flat class="text-accent text-bold" :to="{ name: 'message' }">Show All</q-btn>

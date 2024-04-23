@@ -29,7 +29,7 @@
                                 <app-validation-output property="middle_name" :errors="errors" />
                             </div>
                             <div class="q-py-sm">
-                                <q-input outlined v-model="user_data.email" label="Email" bg-color="grey-2" rounded
+                                <q-input outlined v-model="user_data.email" :disable="is_update" label="Email" bg-color="grey-2" rounded
                                     dense />
                                 <app-validation-output property="email" :errors="errors" />
                             </div>

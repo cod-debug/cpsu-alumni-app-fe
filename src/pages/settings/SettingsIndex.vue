@@ -14,10 +14,13 @@
                                 </q-input>
                             </q-form>
                         </div>
-
                         <div class="q-my-md">
-                            <q-table flat bordered :rows="admin_table.rows" :columns="admin_table.columns"
-                                :rows-per-page-options="[admin_table.limit]" hide-bottom>
+                            <q-table flat bordered 
+                                :rows="admin_table.rows" 
+                                :columns="admin_table.columns"
+                                class="sticky-last-column"
+                                :rows-per-page-options="[admin_table.limit]" 
+                                hide-bottom>
                                 <template #body="props">
                                     <q-tr :props="props">
                                         <q-td key="number" :props="props">

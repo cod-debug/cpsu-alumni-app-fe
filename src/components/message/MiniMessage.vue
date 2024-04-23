@@ -4,6 +4,7 @@
             <div style="width: 40px; aspect-ratio: 1/1; border-radius: 50%;"
                 class="text-h5 flex items-center justify-center bg-primary text-white overflow-hidden">
                 <img :src="avatar" v-if="avatar" style="width: 100%;" />
+                <div v-else class="text-h5" >{{ name[0] }}</div>
             </div>
         </div>
         <div class="col-grow">
