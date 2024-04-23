@@ -25,6 +25,7 @@
 
                     <div class="q-my-md" >
                         <q-table
+                            class="sticky-last-column"
                             flat
                             bordered
                             :rows="alumni_table.rows"

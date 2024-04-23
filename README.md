@@ -1,3 +1,6 @@
+# Node version
+v21.7.3
+
 # CPSU Alumni App (cpsu-alumni-app-fe)
 
 An alumni app
