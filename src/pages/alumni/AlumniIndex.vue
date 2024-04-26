@@ -73,7 +73,7 @@
                                         key="course"
                                         :props="props"
                                     >
-                                        {{ props.row.course || '' }}
+                                        {{ props.row.course?.course_name || '' }}
                                     </q-td>
                                     <q-td
                                         key="year_graduated"

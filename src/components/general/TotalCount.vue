@@ -11,13 +11,14 @@
                 <div class="text-h3">{{ $helper.formatNumber(count) }}</div>
             </div>
         </q-card-section>
-        <q-inner-loading :showing="is_loading_table" label="Please wait..." label-class="text-teal"
+        <q-inner-loading :showing="is_loading" label="Please wait..." label-class="text-teal"
             label-style="font-size: 1.1em" />
     </q-card>
 </template>
 <script>
 export default {
     props: {
+        is_loading: Boolean,
         title: String,
         count: Number,
         icon: String,

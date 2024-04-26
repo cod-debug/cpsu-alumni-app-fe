@@ -15,18 +15,25 @@ const routes = [
   },
   {
     path: "/",
+    component: () => import("layouts/LoginLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "login-redirection",
+        meta: {
+          requiresAuth: false,
+        },
+        component: () => import("pages/auth/LoginIndex.vue"),
+      },
+    ],
+  },
+  {
+    path: "/",
     meta: {
       requiresAuth: true,
     },
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      {
-        path: "",
-        meta: {
-          requiresAuth: true,
-        },
-        component: () => import("pages/dashboard/DashboardIndex.vue"),
-      },
       {
         path: "dashboard",
         name: "dashboard",

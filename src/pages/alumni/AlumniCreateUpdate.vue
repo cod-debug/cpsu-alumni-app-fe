@@ -90,7 +90,11 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-12 q-pr-sm">
                                 <div class="q-py-sm">
-                                    <q-select outlined v-model="user_data.course" label="Course" bg-color="grey-2"
+                                    <q-select outlined v-model="user_data.course_id"
+                                        option-label="course_name"
+                                        option-value="id" 
+                                        label="Course" 
+                                        bg-color="grey-2"
                                         :options="course_list" rounded dense />
                                     <app-validation-output property="course" :errors="errors" />
                                 </div>
@@ -159,17 +163,16 @@ export default {
     data: () => {
         return {
             user_data: {},
-            course_list: [
-                'BSIT',
-                'BSHM',
-                'BSMT',
-                'BEED',
-                'BSED'
-            ],
             is_submitting: false,
             is_loading: false,
             errors: {},
             user_id: null,
+            course_list_payload: {
+                limit: 10000,
+                current_page: 1,
+                status: 'active'
+            },
+            course_list: [],
         }
     },
     computed: {
@@ -181,6 +184,7 @@ export default {
         async submitForm() {
             try {
                 this.user_data.employment_status = this.user_data.work ? "employed" : "unemployed";
+                this.user_data.course_id = this.user_data.course_id.id;
                 let formData = this.$helper.jsonToFormData(this.user_data);
                 this.is_submitting = true;
                 let endpoint = 'alumni/registerAlumni';
@@ -189,6 +193,7 @@ export default {
                     endpoint = 'alumni/updateAlumni';
                     formData = this.user_data;
                 }
+
 
                 let { data, status } = await this.$store.dispatch(endpoint, formData);
 
@@ -242,7 +247,40 @@ export default {
 
         },
 
+
+        async getCourseList() {
+            this.is_loading_courses = true;
+            const payload = {
+                page: this.course_list_payload.current_page,
+                limit: this.course_list_payload.limit,
+                search: "",
+                status: this.course_list_payload.status.toLowerCase()
+            }
+
+            let { data, status } = await this.$store.dispatch('course/getPaginated', payload);
+
+            if ([200, 201].includes(status)) {
+                this.course_list = data.data.data;
+                
+                this.user_data.course_id = data.data.data.filter((i) => {
+                    return i.id == this.user_data.course_id;
+                })[0];
+                
+            } else {
+                this.errors = data.errors;
+                Notify.create({
+                    message: data.message,
+                    position: 'top-right',
+                    color: 'red-8',
+                    closeBtn: "X",
+                    timeout: 3000,
+                })
+            }
+
+            this.is_loading_courses = false;
+        },
         initApp() {
+            this.getCourseList();
             if (this.isUpdate) {
                 this.getOneAlumni();
             }
@@ -252,6 +290,7 @@ export default {
     mounted() {
         let vm = this;
 
+        vm.getCourseList();
         // gn butang ko lang para di kapoy mag type while ga test haha
         
         // vm.user_data = {

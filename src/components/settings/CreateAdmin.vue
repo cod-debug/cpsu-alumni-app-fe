@@ -124,20 +124,20 @@ export default {
     },
     data: () => {
         return {
+            is_loading_courses: false,
             user_data: {
                 "last_name": "",
             },
-            course_list: [
-                'BSIT',
-                'BSHM',
-                'BSMT',
-                'BEED',
-                'BSED'
-            ],
             is_submitting: false,
             is_loading: false,
             errors: {},
             user_id: null,
+            course_list_payload: {
+                limit: 10000,
+                current_page: 1,
+                status: 'active'
+            },
+            course_list: [],
         }
     },
     computed: {
@@ -188,7 +188,35 @@ export default {
 
         },
 
+        async getCourseList() {
+            this.is_loading_courses = true;
+            const payload = {
+                page: this.course_list_payload.current_page,
+                limit: this.course_list_payload.limit,
+                search: "",
+                status: this.course_list_payload.status.toLowerCase()
+            }
+
+            let { data, status } = await this.$store.dispatch('course/getPaginated', payload);
+
+            if ([200, 201].includes(status)) {
+                this.course_list = data.data.data;
+            } else {
+                this.errors = data.errors;
+                Notify.create({
+                    message: data.message,
+                    position: 'top-right',
+                    color: 'red-8',
+                    closeBtn: "X",
+                    timeout: 3000,
+                })
+            }
+
+            this.is_loading_courses = false;
+        },
+
         initApp() {
+            this.getCourseList();
             if (this.isUpdate) {
                 this.getOneAlumni();
             }

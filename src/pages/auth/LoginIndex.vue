@@ -13,6 +13,13 @@
                         <div class="text-h5"><strong>CPSU Graduate School</strong></div>
                     </div>
                     <div class="q-py-lg" style="width: 400px;">
+                    
+                    <q-inner-loading
+                            :showing="is_loading"
+                            label="Please wait..."
+                            label-class="text-teal"
+                            label-style="font-size: 1.1em"
+                        />
                         <q-form @submit.prevent="submitLogin">
                             <div class="q-py-md">
                                 <q-input outlined v-model="email" label="Email" bg-color="white" />
@@ -35,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="q-py-md">
-                                <q-btn type="submit" label="Login" color="secondary" style="width: 100%;" />
+                                <q-btn type="submit" :disabled="is_loading" label="Login" color="secondary" style="width: 100%;" />
                             </div>
                             <div class="row justify-between q-py-md">
                                 <span>Don't have an account yet?</span>
@@ -55,6 +62,7 @@ import { Notify } from 'quasar';
 export default {
     data: () => {
         return {
+            is_loading: false,
             email: "",
             password: "",
             errors: null,
@@ -67,6 +75,7 @@ export default {
                 password: this.password
             }
 
+            this.is_loading = true;
             let { data, status } = await this.$store.dispatch('auth/login', payload);
 
             if ([200, 201].includes(status)) {
@@ -90,6 +99,8 @@ export default {
                     timeout: 3000,
                 })
             }
+            
+            this.is_loading = false;
         }
     }
 }

@@ -3,12 +3,26 @@
         <div class="text-h5">Reports</div>
         <div class="row q-my-md">
             <q-card class="col-lg-8 col-8">
+                    
+                    <q-inner-loading
+                            :showing="is_loading_count"
+                            label="Please wait..."
+                            label-class="text-teal"
+                            label-style="font-size: 1.1em"
+                        />
                 <q-card-section>
                     <div id="chart"></div>
                 </q-card-section>
             </q-card>
             <div class="col-lg-4 q-pl-md">
                 <q-card class="col-4">
+                    
+                    <q-inner-loading
+                            :showing="is_loading_count"
+                            label="Please wait..."
+                            label-class="text-teal"
+                            label-style="font-size: 1.1em"
+                        />
                     <q-card-section>
                         <div id="barChart"></div>
                     </q-card-section>
@@ -23,6 +37,7 @@ import ApexCharts from 'apexcharts';
 export default {
     data: () => {
         return {
+            is_loading_count: false,
             barChartOptions: {
                 chart: {
                     height: 350,
@@ -34,16 +49,7 @@ export default {
                     }
                 },
                 series: [{
-                    data: [{
-                        x: 'category A',
-                        y: 10
-                    }, {
-                        x: 'category B',
-                        y: 18
-                    }, {
-                        x: 'category C',
-                        y: 13
-                    }]
+                    data: []
                 }]
             },
             chartOptions: {
@@ -125,8 +131,9 @@ export default {
                         return i.year_graduated;
                     });
 
-                    console.log(this.chartOptions, 'chartOptions');
-
+                    this.barChartOptions.series[0].data = data.data.map((i) => {
+                        return { x: i.year_graduated, y: i.count  }
+                    });
                     this.renderChart();
                 }
                 this.is_loading_count = false;
@@ -136,10 +143,10 @@ export default {
         },
         renderChart() {
             document.querySelector("#chart").innerHTML = "";
-            var chart = new ApexCharts(document.querySelector("#chart"), this.chartOptions);
+            let chart = new ApexCharts(document.querySelector("#chart"), this.chartOptions);
 
             document.querySelector("#barChart").innerHTML = "";
-            var barChart = new ApexCharts(document.querySelector("#barChart"), this.barChartOptions);
+            let barChart = new ApexCharts(document.querySelector("#barChart"), this.barChartOptions);
 
             chart.render();
             barChart.render();

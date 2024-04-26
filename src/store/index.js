@@ -4,6 +4,7 @@ import auth from "./auth";
 import alumni from "./alumni";
 import admin from "./admin";
 import chats from "./chats";
+import course from "./course";
 
 // import example from './module-example'
 
@@ -24,6 +25,7 @@ export default store(function (/* { ssrContext } */) {
       alumni,
       admin,
       chats,
+      course,
     },
 
     // enable strict mode (adds overhead!)
