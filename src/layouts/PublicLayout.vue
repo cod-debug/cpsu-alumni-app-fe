@@ -24,8 +24,8 @@
         <div class="footer q-px-md flex flex-row-md flex-col-lg justify-between items-center">
             <div class="footer-text-item text-white flex items-center"><q-icon name="fmd_good" /> Barangay Camingawan, Kabankalan City, Philippines</div>
             <div class="footer-text-item text-white flex items-center"><q-icon name="facebook" /> CPSU Graduate School</div>
-            <div class="footer-text-item flex items-center text-dark"><q-icon name="email" /><a href="mailto:cpsu_gs@cpsu.edu.ph" class="text-dark">cpsu_gs@cpsu.edu.ph</a></div>
-            <div class="footer-text-item flex items-center text-dark"><q-icon name="public" /><a href="https://www.cpsu.edu.ph" target="_blank" class="text-dark">cpsu.edu.ph</a></div>
+            <div class="footer-text-item flex items-center text-secondary"><q-icon name="email" /><a href="mailto:cpsu_gs@cpsu.edu.ph" class="text-secondary">cpsu_gs@cpsu.edu.ph</a></div>
+            <div class="footer-text-item flex items-center text-secondary"><q-icon name="public" /><a href="https://www.cpsu.edu.ph" target="_blank" class="text-secondary">cpsu.edu.ph</a></div>
         </div>
       </main>
     </div>
