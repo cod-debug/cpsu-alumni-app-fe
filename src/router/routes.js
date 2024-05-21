@@ -99,7 +99,42 @@ const routes = [
       },
     ],
   },
-
+  
+  
+  {
+    path: "/pages",
+    meta: {
+      requiresAuth: false,
+    },
+    component: () => import("layouts/PublicLayout.vue"),
+    children: [
+      {
+        path: "home",
+        name: "home-page",
+        component: () => import("pages/public/HomePage.vue")
+      },
+      {
+        path: "events",
+        name: "events-page",
+        component: () => import("pages/public/EventsPage.vue")
+      },
+      {
+        path: "about",
+        name: "about-page",
+        component: () => import("pages/public/AboutPage.vue")
+      },
+      {
+        path: "contact",
+        name: "contact-page",
+        component: () => import("pages/public/ContactPage.vue")
+      },
+      {
+        path: "contact",
+        name: "sign-in-page",
+        component: () => import("pages/public/SignInPage.vue")
+      }
+    ],
+  },
   // Always leave this as last one,
   // but you can also remove it
   {
