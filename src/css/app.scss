@@ -98,12 +98,47 @@ body {
   right: 0;
   z-index: 1;
 }
+
+
+// for navigation bar in public pages
+.q-toolbar {
+  position: fixed;
+}
 .navbar-btn-toggle {
   display: none;
 }
 .quasar-toolbar-toggle a{
   font-weight: bold;
+  color: #3f9891!important;
 } 
+
+.quasar-toolbar-toggle a.text-white {
+  color: white!important;
+}
+
+.bg-public-primary {
+  background-color: #3f9891;
+}
+
+.glow-effect,
+.glow-effect-2 {
+  position: fixed;
+  top: -40vh;
+  right: -320px;
+  width: 80vh;
+  height: 80vh;
+  background: rgb(9,121,29);
+  background: radial-gradient(circle, rgba(9,121,97,1) 0%, rgba(0,255,192,0) 60%);
+  opacity: .5;
+  z-index: -1;
+  overflow: visible;
+}
+
+
+.glow-effect-2 {
+  left: -380px;
+  top: 10vh;
+}
 @media only screen and (max-width: 992px) {
   .navbar-btn-toggle {
     display: block;
@@ -131,4 +166,32 @@ body {
     justify-content: center;
     font-size: 1.25rem;
   } 
+}
+
+// main page
+.public-page-main {
+  padding-top: 100px;
+}
+
+// footer
+.footer {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 50px;
+  position: fixed;
+  background: rgb(9,118,121);
+  background: linear-gradient(90deg, rgba(9,83,121,1) 0%, rgba(0,211,255,1) 61%, rgba(0,255,188,1) 100%);
+  -webkit-backdrop-filter: opacity(10px);
+  backdrop-filter: opacity(10px);
+}
+
+.footer .footer-text-item,
+
+.footer .footer-text-item a{
+  text-decoration: none!important;
+  font-size: .8rem;
+  gap: 1rem;
+  font-weight: bold;
+  color: white;
 }
