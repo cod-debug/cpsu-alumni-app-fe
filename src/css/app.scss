@@ -23,7 +23,7 @@ body {
 
 * {
   box-sizing: border-box !important;
-  font-family: "century gothic";
+  font-family: "Arial";
 }
 .q-drawer-container .q-drawer {
   width: 250px !important;
@@ -216,4 +216,11 @@ body {
   font-size: .8rem;
   gap: 1rem;
   color: white;
+}
+
+// HOME PAGE
+.home-banner {
+  height: calc(100vh - 150px);
+  display: flex;
+  width: 100%;
 }
