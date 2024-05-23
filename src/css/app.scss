@@ -139,7 +139,7 @@ body {
 }
 
 .text-public-primary,
-.quasar-toolbar-toggle a:hover {
+.quasar-toolbar-toggle a:not(.bg-public-primary):hover {
   color: #3f9891!important;
 }
 

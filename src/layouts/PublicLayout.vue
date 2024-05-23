@@ -16,7 +16,7 @@
             toggle-color="public-primary"
             :class="(!toggle_headers ? 'show': 'hide')"
         />
-        <q-btn :icon="toggle_headers ? 'menu' : 'close'" class="navbar-btn-toggle" @click="toggle_headers = !toggle_headers"></q-btn>
+        <q-btn color="secondary" :icon="toggle_headers ? 'menu' : 'close'" class="navbar-btn-toggle" @click="toggle_headers = !toggle_headers"></q-btn>
       </q-toolbar>
       <main class="public-page-main q-px-lg">
         <div class="glow-effect"></div>
