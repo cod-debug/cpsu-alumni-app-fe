@@ -7,13 +7,14 @@
         </q-item>
         
       <q-space />
-
         <q-btn-toggle
+            v-model="selected_route"
             flat stretch
             :options="options"
             style="height: 30px;"
             class="self-center quasar-toolbar-toggle"
-            :class="!toggle_headers ? 'show': 'hide'"
+            toggle-color="public-primary"
+            :class="(!toggle_headers ? 'show': 'hide')"
         />
         <q-btn :icon="toggle_headers ? 'menu' : 'close'" class="navbar-btn-toggle" @click="toggle_headers = !toggle_headers"></q-btn>
       </q-toolbar>
@@ -36,30 +37,40 @@
         data: () => {
             return {
                 toggle_headers: false,
+                selected_route: "home-page",
                 options: [
                     {
                         label: "Home",
+                        value: "home-page",
                         to: { name: "home-page" }
                     },
                     {
                         label: "Events",
+                        value: "events-page",
                         to: { name: "events-page" }
                     },
                     {
                         label: "About Us",
+                        value: "about-page",
                         to: { name: "about-page" }
                     },
                     {
                         label: "Contact Us",
+                        value: "contact-page",
                         to: { name: "contact-page" }
                     },
                     {
                         label: "Sign In",
+                        value: "sign-in-page",
                         to: { name: "sign-in-page" },
                         class: "bg-public-primary text-white"
                     }
                 ]
             }
-        }
+        },
+
+        mounted(){
+            this.selected_route = this.$route.name
+        },
     }
 </script>

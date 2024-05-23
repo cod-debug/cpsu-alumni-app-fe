@@ -109,8 +109,26 @@ body {
 }
 .quasar-toolbar-toggle a{
   font-weight: bold;
-  color: #3f9891!important;
+  color: #121212;
+  transition: .3s;
 } 
+
+.quasar-toolbar-toggle a:not(.bg-public-primary):after,
+.quasar-toolbar-toggle a.text-public-primary:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  opacity: 0;
+  bottom: 0;
+  border: 1px solid #3f9891;
+  transition: .3s;
+}
+
+.quasar-toolbar-toggle a:not(.bg-public-primary):hover::after,
+.quasar-toolbar-toggle a.text-public-primary:after {
+  opacity: 1;
+  width: 30%;
+}
 
 .quasar-toolbar-toggle a.text-white {
   color: white!important;
@@ -118,6 +136,11 @@ body {
 
 .bg-public-primary {
   background-color: #3f9891;
+}
+
+.text-public-primary,
+.quasar-toolbar-toggle a:hover {
+  color: #3f9891!important;
 }
 
 .glow-effect,
