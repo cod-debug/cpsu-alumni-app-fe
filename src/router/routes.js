@@ -23,7 +23,7 @@ const routes = [
         meta: {
           requiresAuth: false,
         },
-        component: () => import("pages/auth/LoginIndex.vue"),
+        component: () => import("pages/RedirectionPage.vue"),
       },
     ],
   },

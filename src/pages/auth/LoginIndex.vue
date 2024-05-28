@@ -35,7 +35,7 @@
                             <div class="q-py-sm row justify-between items-center">
                                 <div class="row items-center">
                                     <input type="checkbox" id="keeplogin">
-                                    <label for="keeplogin">Keep me logged in</label>
+                                    <label for="keeplogin" class="q-ml-sm">Keep me logged in</label>
                                 </div>
                                 <div>
                                     <a href="#" class="text-white">Forgot Password?</a>
