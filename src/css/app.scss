@@ -224,3 +224,22 @@ body {
   display: flex;
   width: 100%;
 }
+
+.custom-sign-in-btn {
+  background: rgb(9,83,121);
+  background: linear-gradient(90deg, #8b3dff, rgba(0,255,188,1) 100%);
+  color: white;
+  width: 100%;
+}
+
+.custom-phone-btn {
+  background: rgb(93,141,241);
+  background: linear-gradient(90deg, rgba(93,141,241,1) 0%, rgba(15,52,106,1) 100%);
+  color: white;
+}
+
+.custom-email-btn {
+  background: rgb(241,201,81);
+  background: linear-gradient(90deg, rgba(241,201,81,1) 0%, rgba(221,124,13,1) 100%);
+  color: white;
+}

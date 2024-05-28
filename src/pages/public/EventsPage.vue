@@ -1,6 +1,6 @@
 <template>
     <div class="q-my-xl">
-        <div class="row" style="min-height: cal(100vh - 150px);">
+        <div class="row" style="min-height: calc(100vh - 196px);">
             <div class="col-md-6 col-sm-12 col-xs-12 flex justify-center">
                 <div class="flex items-center justify-center q-px-lg">
                     <div>
@@ -13,8 +13,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div>
+            <div class="col-md-6 col-sm-12 col-xs-12" style="height: inherit;">
+                <div style="height: 100%;" class="flex items-center">
                     <q-carousel
                         style="width: 100%;"
                         animated

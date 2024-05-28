@@ -1,6 +1,6 @@
 <template>
     <div class="q-my-xl">
-        <div class="row" style="min-height: cal(100vh - 150px);">
+        <div class="row" style="min-height: calc(100vh - 196px);">
             <div class="col-md-6" style="height: inherit; display: flex;">
                 <div class="flex items-center q-px-lg" style="height: inherit;">
                     <div>
@@ -12,8 +12,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="flex justify-center q-px-lg">
+            <div class="col-md-6 flex justify-center" style="height: inherit;">
+                <div class="flex justify-center items-end q-px-lg" style="height: inherit;">
                     <img src="~assets/home/person.png"/>
                 </div>
             </div>
