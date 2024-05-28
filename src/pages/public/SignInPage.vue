@@ -59,8 +59,8 @@
                 </div>
                 <div>
                     <div class="flex justify-between" style="gap: .5rem;">
-                        <q-btn type="button" @click="active_type='email'" class="custom-phone-btn q-py-sm" style="flex-grow: 1;" label="Phone Number" icon="locale_phone_outlined" />
-                        <q-btn type="button" @click="active_type='phone'" class="custom-email-btn q-py-sm" style="flex-grow: 1;" label="Email Address" icon="email"/>
+                        <q-btn type="button" @click="active_type='phone'" class="custom-phone-btn q-py-sm" style="flex-grow: 1;" label="Phone Number" icon="locale_phone_outlined" />
+                        <q-btn type="button" @click="active_type='email'" class="custom-email-btn q-py-sm" style="flex-grow: 1;" label="Email Address" icon="email"/>
                     </div>
                 </div>
                 <div class="text-center q-py-md">

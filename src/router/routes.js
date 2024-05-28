@@ -129,7 +129,7 @@ const routes = [
         component: () => import("pages/public/ContactPage.vue")
       },
       {
-        path: "contact",
+        path: "sign-in",
         name: "sign-in-page",
         component: () => import("pages/public/SignInPage.vue")
       }
