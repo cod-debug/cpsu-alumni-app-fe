@@ -103,6 +103,7 @@ body {
 // for navigation bar in public pages
 .q-toolbar {
   position: fixed;
+  z-index: 2000;
 }
 .navbar-btn-toggle {
   display: none;
