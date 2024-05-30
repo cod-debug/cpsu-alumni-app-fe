@@ -5,6 +5,7 @@ import alumni from "./alumni";
 import admin from "./admin";
 import chats from "./chats";
 import course from "./course";
+import alumni_public from "./alumni_public";
 
 // import example from './module-example'
 
@@ -22,8 +23,9 @@ export default store(function (/* { ssrContext } */) {
     modules: {
       // example
       auth,
-      alumni,
       admin,
+      alumni,
+      alumni_public,
       chats,
       course,
     },

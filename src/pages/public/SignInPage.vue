@@ -5,7 +5,13 @@
                 <div class="text-h4 text-teal">Welcome Back!</div>
                 <div class="text-caption text-teal">Please sign in.</div>
             </div>
-            <q-form @submit.prevent="login" greedy>
+            <q-inner-loading
+                    :showing="is_loading"
+                    label="Please wait..."
+                    label-class="text-teal"
+                    label-style="font-size: 1.1em"
+                />
+            <q-form @submit.prevent="submitLogin" greedy >
                 <div class="q-py-xs" v-if="active_type == 'email'">
                     <q-input filled color="teal" v-model="login_payload.email" label="Email" :rules="[val => val && val.length > 0 || 'This field is required.']">
                         <template v-slot:prepend>
@@ -42,7 +48,7 @@
                     </div>
                 </div>
                 <div class="q-py-xs">
-                    <q-btn class="custom-sign-in-btn q-py-sm" type="submit" label="Sign In" />
+                    <q-btn class="custom-sign-in-btn q-py-sm" type="submit" label="Sign In" :disabled="is_loading"  />
                 </div>
                 <div class="q-py-md">
                     <div class="flex justify-between" style="gap: 1rem;">
@@ -59,8 +65,8 @@
                 </div>
                 <div>
                     <div class="flex justify-between" style="gap: .5rem;">
-                        <q-btn type="button" @click="active_type='phone'" class="custom-phone-btn q-py-sm" style="flex-grow: 1;" label="Phone Number" icon="locale_phone_outlined" />
-                        <q-btn type="button" @click="active_type='email'" class="custom-email-btn q-py-sm" style="flex-grow: 1;" label="Email Address" icon="email"/>
+                        <q-btn type="button" :disabled="is_loading" @click="active_type='phone'" class="custom-phone-btn q-py-sm" style="flex-grow: 1;" label="Phone Number" icon="locale_phone_outlined" />
+                        <q-btn type="button" :disabled="is_loading" @click="active_type='email'" class="custom-email-btn q-py-sm" style="flex-grow: 1;" label="Email Address" icon="email"/>
                     </div>
                 </div>
                 <div class="text-center q-py-md">
@@ -74,12 +80,15 @@
 </template>
 
 <script>
+import { Notify } from 'quasar';
     export default {
         data: () => {
             return {
+                is_loading: false,
                 login_payload: {
                     email: "",
                     password: "",
+                    phone: "",
 
                 },
                 active_type: "email",
@@ -87,8 +96,41 @@
             }
         }, 
         methods: {
-            async login() {
+            async submitLogin() {
+                let payload = {password: this.login_payload.password, type: this.active_type}
 
+                if(this.active_type === 'email'){
+                    payload.email = this.login_payload.email;
+                } else {
+                    payload.contact_number = this.login_payload.phone;
+                }
+
+                this.is_loading = true;
+                let { data, status } = await this.$store.dispatch('alumni_public/login', payload);
+
+                if ([200, 201].includes(status)) {
+                    Notify.create({
+                        message: data.message,
+                        position: 'top-right',
+                        type: 'positive',
+                        timeout: 3000,
+                    });
+                    localStorage.setItem('user_data', JSON.stringify(data.data));
+                    localStorage.setItem('token', data.token);
+                    // this.$router.push({ name: "dashboard" })
+                    this.errors = null;
+                } else {
+                    this.errors = data.errors;
+                    Notify.create({
+                        message: data.message,
+                        position: 'top-right',
+                        color: 'red-8',
+                        closeBtn: "X",
+                        timeout: 3000,
+                    })
+                }
+                
+                this.is_loading = false;
             }
         }
     }
