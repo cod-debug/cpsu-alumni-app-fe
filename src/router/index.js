@@ -41,7 +41,7 @@ export default route(function (/* { store, ssrContext } */) {
     const accessToken = localStorage.getItem("token");
     const userData = JSON.parse(localStorage.getItem("user_data"));
     
-    if ((requiresAuth && !accessToken) ||/*  */ (isAdmin && userData.type != 'admin')) {
+    if ((requiresAuth && !accessToken) || (isAdmin && userData.type != 'admin')) {
       Notify.create({
         message: `Unauthorized user detected.`,
         position: "top-right",
