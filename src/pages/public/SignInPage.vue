@@ -69,11 +69,14 @@
                         <q-btn type="button" :disabled="is_loading" @click="active_type='email'" class="custom-email-btn q-py-sm" style="flex-grow: 1;" label="Email Address" icon="email"/>
                     </div>
                 </div>
-                <div class="text-center q-py-md">
+                <div class="text-center q-pt-md">
                     <span class="text-green-10">Don't have an account yet?</span>
-                    &nbsp;
-                    <a href="#" class="text-teal">Sign Up</a>
+                    <a href="#" class="text-teal q-px-xs">Sign Up Now</a>
                 </div>
+                <!-- <div class="text-center">
+                    <span class="text-grey-6">If you are an admin.</span>
+                    <q-btn flat dense :to="{ name:'login' }" type="button" class="text-blue-3" style="text-transform: none;">Login here</q-btn>
+                </div> -->
             </q-form>
         </div>
     </div>
@@ -117,8 +120,8 @@ import { Notify } from 'quasar';
                     });
                     localStorage.setItem('user_data', JSON.stringify(data.data));
                     localStorage.setItem('token', data.token);
-                    // this.$router.push({ name: "dashboard" })
                     this.errors = null;
+                    window.location.reload();
                 } else {
                     this.errors = data.errors;
                     Notify.create({

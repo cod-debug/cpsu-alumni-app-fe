@@ -16,6 +16,7 @@
             toggle-color="public-primary"
             :class="(toggle_headers ? 'show': 'hide')"
         />
+        <q-btn v-if="logged_in_user" label="Sign Out" color="teal" @click="signOut"/>
         <q-btn color="secondary" :icon="toggle_headers ? 'close' : 'menu'" class="navbar-btn-toggle q-py-sm" @click="toggle_headers = !toggle_headers"></q-btn>
       </q-toolbar>
       <main class="public-page-main q-px-lg">
@@ -38,6 +39,7 @@
             return {
                 toggle_headers: false,
                 selected_route: "home-page",
+                logged_in_user: JSON.parse(localStorage.getItem('user_data') || false),
                 options: [
                     {
                         label: "Home",
@@ -59,12 +61,6 @@
                         value: "contact-page",
                         to: { name: "contact-page" }
                     },
-                    {
-                        label: "Sign In",
-                        value: "sign-in-page",
-                        to: { name: "sign-in-page" },
-                        class: "bg-public-primary text-white"
-                    }
                 ]
             }
         },
@@ -89,12 +85,34 @@
 
                 document.addEventListener('keydown', handleKeyDown);
                 document.addEventListener('keyup', handleKeyUp);
+            },
+            signOut(){
+                localStorage.clear();
+                window.location.reload();
             }
         },
 
         mounted(){
             this.selected_route = this.$route.name;
             this.gotoAdminLogin();
+            if(!this.logged_in_user) {
+                this.options.push(
+                    {
+                        label: "Sign In",
+                        value: "sign-in-page",
+                        to: { name: "sign-in-page" },
+                        class: "bg-public-primary text-white"
+                    }
+                );
+            } else {
+                this.options.push(
+                    {
+                        label: "Profile",
+                        value: "profile-page",
+                        to: { name: "profile-page" }
+                    }
+                );
+            }
         },
     }
 </script>

@@ -31,6 +31,7 @@ const routes = [
     path: "/",
     meta: {
       requiresAuth: true,
+      isAdmin: true,
     },
     component: () => import("layouts/MainLayout.vue"),
     children: [
@@ -39,6 +40,7 @@ const routes = [
         name: "dashboard",
         meta: {
           requiresAuth: true,
+          isAdmin: true,
         },
         component: () => import("pages/dashboard/DashboardIndex.vue"),
       },
@@ -46,6 +48,7 @@ const routes = [
         path: "alumni",
         meta: {
           requiresAuth: true,
+          isAdmin: true,
         },
         children: [
           {
@@ -70,6 +73,7 @@ const routes = [
         name: "reports",
         meta: {
           requiresAuth: true,
+          isAdmin: true,
         },
         component: () => import("pages/reports/ReportsIndex.vue"),
       },
@@ -78,6 +82,7 @@ const routes = [
         name: "settings",
         meta: {
           requiresAuth: true,
+          isAdmin: true,
         },
         component: () => import("pages/settings/SettingsIndex.vue"),
       },
@@ -86,6 +91,7 @@ const routes = [
         name: "notifications",
         meta: {
           requiresAuth: true,
+          isAdmin: true,
         },
         component: () => import("pages/notifications/NotificationsIndex.vue"),
       },
@@ -94,6 +100,7 @@ const routes = [
         name: "message",
         meta: {
           requiresAuth: true,
+          isAdmin: true,
         },
         component: () => import("pages/message/MessageIndex.vue"),
       },
@@ -132,6 +139,11 @@ const routes = [
         path: "sign-in",
         name: "sign-in-page",
         component: () => import("pages/public/SignInPage.vue")
+      },
+      {
+        path: "profile",
+        name: "profile-page",
+        component: () => import("pages/public/ProfilePage.vue")
       }
     ],
   },

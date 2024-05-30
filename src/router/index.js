@@ -36,10 +36,12 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeEach((to, from, next) => {
     let requiresAuth = to.meta.requiresAuth || false;
+    let isAdmin = to.meta.isAdmin || false;
 
     const accessToken = localStorage.getItem("token");
-
-    if (requiresAuth && !accessToken) {
+    const userData = JSON.parse(localStorage.getItem("user_data"));
+    
+    if ((requiresAuth && !accessToken) ||/*  */ (isAdmin && userData.type != 'admin')) {
       Notify.create({
         message: `Unauthorized user detected.`,
         position: "top-right",
@@ -47,7 +49,7 @@ export default route(function (/* { store, ssrContext } */) {
         timeout: 2000,
         color: "red",
       });
-      next({ name: "login" });
+      next({ name: "home-page" });
     } else next();
   });
 
