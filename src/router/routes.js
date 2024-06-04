@@ -147,6 +147,17 @@ const routes = [
       }
     ],
   },
+  {
+    path: "/change-password",
+    component: () => import("layouts/BlankLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "change-password-required",
+        component: () => import("pages/public/ChangePassword.vue")
+      },
+    ],
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

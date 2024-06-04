@@ -121,7 +121,12 @@ import { Notify } from 'quasar';
                     localStorage.setItem('user_data', JSON.stringify(data.data));
                     localStorage.setItem('token', data.token);
                     this.errors = null;
-                    window.location.reload();
+                    if(data.data.require_change_password){
+                        this.$router.push({name: "change-password-required"});
+
+                    } else {
+                        window.location.reload();
+                    }
                 } else {
                     this.errors = data.errors;
                     Notify.create({
@@ -134,6 +139,11 @@ import { Notify } from 'quasar';
                 }
                 
                 this.is_loading = false;
+            }
+        },
+        mounted() {
+            if(localStorage.getItem('token')){
+                this.$router.push({name: 'home-page'});
             }
         }
     }

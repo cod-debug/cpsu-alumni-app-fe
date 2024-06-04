@@ -244,3 +244,26 @@ body {
   background: linear-gradient(90deg, rgba(241,201,81,1) 0%, rgba(221,124,13,1) 100%);
   color: white;
 }
+
+
+.password-requirements {
+  li.pass {
+    color: #158331;
+  }
+  li.pass:before {
+    content: '✓';
+    font-weight: bold;
+  }
+  li.failed {
+    color: red;
+  }
+  li.failed:before {
+    font-weight: bold;
+    content: 'X'
+  }
+}
+
+.password-requirements {
+  list-style: none;
+  padding-left: 1.2rem;
+}
