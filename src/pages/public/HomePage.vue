@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-6 flex justify-center" style="height: inherit;">
                 <div class="flex justify-center items-end q-px-lg" style="height: inherit;">
-                    <img src="~assets/home/person.png"/>
+                    <img src="~assets/home/person.png" width="100%" />
                 </div>
             </div>
         </div>

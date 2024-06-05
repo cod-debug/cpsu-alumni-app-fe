@@ -1,18 +1,18 @@
 <template>
     <q-page>
         <div class="row text-white" style="height: 100vh;">
-            <div class="col-md-6 col-sm-4 row justify-center items-center q-pa-md bg-white">
+            <div class="col-md-6 col-sm-12 row justify-center items-center q-pa-md bg-white mobile-hide">
                 <div style="width: 90%;">
                     <img alt="Quasar logo" src="~assets/images/login-image.png" style="width: 100%;">
                 </div>
             </div>
-            <div class="col-md-6 col-sm-8 bg-primary q-pa-md row justify-center items-center">
-                <div>
+            <div class="col-md-6 col-sm-12 col-12 bg-primary q-pa-md row justify-center items-center" style="max-width: 100%;">
+                <div style="width: 400px; max-width: 100%; box-sizing: border-box;">
                     <div class="text-center">
                         <img alt="Quasar logo" src="~assets/logo.png" style="width: 120px;">
                         <div class="text-h5"><strong>CPSU Graduate School</strong></div>
                     </div>
-                    <div class="q-py-lg" style="width: 400px;">
+                    <div class="q-py-lg">
                     
                     <q-inner-loading
                             :showing="is_loading"

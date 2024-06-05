@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-6">
                 <div class="flex justify-center q-px-lg">
-                    <img src="~assets/home/person.png"/>
+                    <img src="~assets/home/person.png" width="100%" />
                 </div>
             </div>
         </div>
