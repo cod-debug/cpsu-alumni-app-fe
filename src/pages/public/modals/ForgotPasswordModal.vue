@@ -64,6 +64,7 @@
                         type: 'positive',
                         timeout: 3000,
                     });
+                    this.email = "";
                 }
                 this.is_loading = false;
             },
