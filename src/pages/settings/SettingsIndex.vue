@@ -4,7 +4,7 @@
 
         <q-tabs
             v-model="tab"
-            align="justify"
+            align="start"
             class="bg-grey-3 text-dark q-mt-md shadow-2"
             active-color="accent"
             indicator-color="accent"

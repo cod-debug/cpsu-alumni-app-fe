@@ -73,7 +73,6 @@
                 function handleKeyDown(event) {
                     pressedKeys[event.keyCode] = true;
 
-                    // SHIFT + ALT + A
                     if (pressedKeys[16] && pressedKeys[18] && (pressedKeys[65] || pressedKeys[97])) {
                         vm.$router.push({name: 'login'});
                     }
@@ -82,7 +81,6 @@
                 function handleKeyUp(event) {
                     delete pressedKeys[event.keyCode];
                 }
-
                 document.addEventListener('keydown', handleKeyDown);
                 document.addEventListener('keyup', handleKeyUp);
             },

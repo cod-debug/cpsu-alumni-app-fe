@@ -44,7 +44,7 @@
                         <label for="keeplogin" class="q-ml-sm">Keep me logged in</label>
                     </div>
                     <div>
-                        <a href="#" class="text-dark">Forgot Password?</a>
+                        <a @click="openForgotPassword" class="text-dark cursor-pointer">Forgot Password?</a>
                     </div>
                 </div>
                 <div class="q-py-xs">
@@ -79,15 +79,18 @@
                 </div> -->
             </q-form>
         </div>
+        <app-forgot-password-modal ref="forgot_password_modal" />
     </div>
 </template>
 
 <script>
+import ForgotPasswordModal from "./modals/ForgotPasswordModal.vue";
 import { Notify } from 'quasar';
     export default {
         data: () => {
             return {
                 is_loading: false,
+                forgot_password_modal: false,
                 login_payload: {
                     email: "",
                     password: "",
@@ -139,12 +142,18 @@ import { Notify } from 'quasar';
                 }
                 
                 this.is_loading = false;
+            },
+            openForgotPassword(){
+                this.$refs['forgot_password_modal'].openForgotPasswordModal();
             }
         },
         mounted() {
             if(localStorage.getItem('token')){
                 this.$router.push({name: 'home-page'});
             }
-        }
+        },
+        components: {
+            appForgotPasswordModal: ForgotPasswordModal,
+        },
     }
 </script>
