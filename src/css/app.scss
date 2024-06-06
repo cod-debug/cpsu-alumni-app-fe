@@ -282,10 +282,10 @@ body {
 
 .chatbox--holder .chatbox--main {
   width: 350px;
-  max-width: 90vw;
+  max-width: 80vw;
   height: 400px;
   bottom: 50%;
-  right: 80%;
+  right: calc(100% - 50px);
   z-index: -1;
   position: absolute;
 }
