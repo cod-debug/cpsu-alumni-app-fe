@@ -14,26 +14,7 @@ export const getPaginated = async ({ commit }, payload) => {
   try {
     res = await axios({
       method: "get",
-      url: `${API_BASE_URL}/${prefix}/nature_of_work/get-paginated`,
-      params: payload,
-      headers: headers,
-    });
-  } catch (e) {
-    // // console.log(e);
-    res.data = e.response.data;
-    res.status = e.response.status;
-  }
-  return res;
-}
-
-export const getAll = async ({ commit }, payload) => {
-  let res = {};
-  headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
-
-  try {
-    res = await axios({
-      method: "get",
-      url: `${API_BASE_URL}/${prefix}/nature_of_work/get-all`,
+      url: `${API_BASE_URL}/${prefix}/job_posting/get-paginated`,
       params: payload,
       headers: headers,
     });
@@ -52,7 +33,7 @@ export const getOne = async ({ commit }, payload) => {
     try {
       res = await axios({
         method: "get",
-        url: `${API_BASE_URL}/${prefix}/nature_of_work/one/${payload}`,
+        url: `${API_BASE_URL}/${prefix}/job_posting/one/${payload}`,
         headers: headers,
       });
     } catch (e) {
@@ -69,7 +50,7 @@ export const create = async ({ commit }, payload) => {
   try {
     res = await axios({
       method: "post",
-      url: `${API_BASE_URL}/${prefix}/nature_of_work/create`,
+      url: `${API_BASE_URL}/${prefix}/job_posting/create`,
       data: payload,
       headers: {
         "Content-Type": "multipart/form-data",
@@ -89,7 +70,7 @@ export const update = async ({ commit }, payload) => {
   try {
     res = await axios({
       method: "put",
-      url: `${API_BASE_URL}/${prefix}/nature_of_work/update/${payload.id}`,
+      url: `${API_BASE_URL}/${prefix}/job_posting/update/${payload.id}`,
       data: payload,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -109,7 +90,7 @@ export const remove = async ({ commit }, payload) => {
   try {
     res = await axios({
       method: "delete",
-      url: `${API_BASE_URL}/${prefix}/nature_of_work/delete/${payload.id}`,
+      url: `${API_BASE_URL}/${prefix}/job_posting/delete/${payload.id}`,
       data: payload,
       headers: {
         "Content-Type": "application/json; charset=utf-8",

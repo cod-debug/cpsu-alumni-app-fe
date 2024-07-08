@@ -136,6 +136,11 @@ const routes = [
         component: () => import("pages/public/JobPostingPage.vue")
       },
       {
+        path: "job-posting-add",
+        name: "job-posting-add-page",
+        component: () => import("pages/public/JobPostingAddPage.vue")
+      },
+      {
         path: "contact",
         name: "contact-page",
         component: () => import("pages/public/ContactPage.vue")
