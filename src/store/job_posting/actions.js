@@ -27,23 +27,23 @@ export const getPaginated = async ({ commit }, payload) => {
 }
 
 export const getOne = async ({ commit }, payload) => {
-    let res = {};
-    headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
-  
-    try {
-      res = await axios({
-        method: "get",
-        url: `${API_BASE_URL}/${prefix}/job_posting/one/${payload}`,
-        headers: headers,
-      });
-    } catch (e) {
-      res.data = e.response.data;
-      res.status = e.response.status;
-    }
-    return res;
-  }
+  let res = {};
+  headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
 
-  
+  try {
+    res = await axios({
+      method: "get",
+      url: `${API_BASE_URL}/${prefix}/job_posting/get-one/${payload}`,
+      headers: headers,
+    });
+  } catch (e) {
+    res.data = e.response.data;
+    res.status = e.response.status;
+  }
+  return res;
+}
+
+
 export const create = async ({ commit }, payload) => {
   let res = {};
 

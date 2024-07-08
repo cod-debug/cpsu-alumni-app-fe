@@ -106,8 +106,8 @@ const routes = [
       },
     ],
   },
-  
-  
+
+
   {
     path: "/pages",
     meta: {
@@ -138,6 +138,11 @@ const routes = [
       {
         path: "job-posting-add",
         name: "job-posting-add-page",
+        component: () => import("pages/public/JobPostingAddPage.vue")
+      },
+      {
+        path: "job-posting-add/:id",
+        name: "job-posting-update-page",
         component: () => import("pages/public/JobPostingAddPage.vue")
       },
       {

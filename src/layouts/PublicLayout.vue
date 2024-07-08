@@ -14,7 +14,7 @@
                 @click="toggle_headers = !toggle_headers"></q-btn>
             <q-btn v-if="logged_in_user" title="Sign Out" icon="logout" color="teal" @click="signOut" class="q-ml-sm" />
         </q-toolbar>
-        <main class="public-page-main q-px-lg">
+        <main class="public-page-main q-px-lg q-pb-xl">
             <div class="glow-effect"></div>
             <div class="glow-effect-2"></div>
             <router-view />
