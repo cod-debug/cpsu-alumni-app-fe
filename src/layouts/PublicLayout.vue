@@ -80,7 +80,7 @@
                                 <div></div>
                             </div>
                         </q-card-section>
-                        <div style="flex: 1; border-top: 1px solid #DEDEDE; border-bottom: 1px solid #DEDEDE; ">
+                        <div style="flex: 1; border-top: 1px solid #DEDEDE; border-bottom: 1px solid #DEDEDE; overflow: auto;">
                             <div v-if="messages.length > 0">
                                 <div v-for="(item, key) in messages" :key="key" class="q-px-lg">
                                     <q-chat-message :text="[item.message]" v-if="item.user_from === logged_in_user.user_id"
