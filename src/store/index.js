@@ -6,6 +6,7 @@ import admin from "./admin";
 import chats from "./chats";
 import course from "./course";
 import alumni_public from "./alumni_public";
+import nature_of_work from "./nature_of_work";
 
 // import example from './module-example'
 
@@ -28,6 +29,7 @@ export default store(function (/* { ssrContext } */) {
       alumni_public,
       chats,
       course,
+      nature_of_work,
     },
 
     // enable strict mode (adds overhead!)
