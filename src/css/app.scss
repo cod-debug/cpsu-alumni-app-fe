@@ -82,11 +82,9 @@ body {
   width: 100%;
 }
 
-
 .sticky-last-column table th:last-child {
   background-color: white;
 }
-
 
 .sticky-last-column table td:last-child {
   background-color: white;
@@ -99,10 +97,9 @@ body {
   z-index: 1;
 }
 
-
 // for navigation bar in public pages
 .mobile .q-toolbar {
-  background-color: rgba(255,255,255,.5);
+  background-color: rgba(255, 255, 255, 0.5);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
@@ -113,11 +110,11 @@ body {
 .navbar-btn-toggle {
   display: none;
 }
-.quasar-toolbar-toggle a{
+.quasar-toolbar-toggle a {
   font-weight: bold;
   color: #121212;
-  transition: .3s;
-} 
+  transition: 0.3s;
+}
 
 .quasar-toolbar-toggle a:not(.bg-public-primary):after,
 .quasar-toolbar-toggle a.text-public-primary:after {
@@ -127,7 +124,7 @@ body {
   opacity: 0;
   bottom: 0;
   border: 1px solid #3f9891;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .quasar-toolbar-toggle a:not(.bg-public-primary):hover::after,
@@ -137,7 +134,7 @@ body {
 }
 
 .quasar-toolbar-toggle a.text-white {
-  color: white!important;
+  color: white !important;
 }
 
 .bg-public-primary {
@@ -146,7 +143,7 @@ body {
 
 .text-public-primary,
 .quasar-toolbar-toggle a:not(.bg-public-primary):hover {
-  color: #3f9891!important;
+  color: #3f9891 !important;
 }
 
 .glow-effect,
@@ -156,13 +153,16 @@ body {
   right: -320px;
   width: 80vh;
   height: 80vh;
-  background: rgb(9,121,29);
-  background: radial-gradient(circle, rgba(9,121,97,1) 0%, rgba(0,255,192,0) 60%);
-  opacity: .5;
+  background: rgb(9, 121, 29);
+  background: radial-gradient(
+    circle,
+    rgba(9, 121, 97, 1) 0%,
+    rgba(0, 255, 192, 0) 60%
+  );
+  opacity: 0.5;
   z-index: -1;
   overflow: visible;
 }
-
 
 .glow-effect-2 {
   left: -380px;
@@ -172,7 +172,7 @@ body {
   .navbar-btn-toggle {
     display: block;
   }
-  .quasar-toolbar-toggle.hide{
+  .quasar-toolbar-toggle.hide {
     display: none;
   }
   .quasar-toolbar-toggle.show {
@@ -180,21 +180,21 @@ body {
     display: flex;
     flex-direction: column;
     width: 80%;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0, 0, 0, 0.5);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-  
+
     min-height: 100vh;
     top: 0;
     left: 0;
-  } 
-  .quasar-toolbar-toggle a{
-    color: white!important;
-    text-align: left!important;
+  }
+  .quasar-toolbar-toggle a {
+    color: white !important;
+    text-align: left !important;
     align-items: start;
     justify-content: center;
     font-size: 1.25rem;
-  } 
+  }
 }
 
 // main page
@@ -209,17 +209,21 @@ body {
   width: 100%;
   min-height: 50px;
   position: fixed;
-  background: rgb(9,118,121);
-  background: linear-gradient(90deg, rgba(9,83,121,1) 0%, rgba(0,211,255,1) 61%, rgba(0,255,188,1) 100%);
+  background: rgb(9, 118, 121);
+  background: linear-gradient(
+    90deg,
+    rgba(9, 83, 121, 1) 0%,
+    rgba(0, 211, 255, 1) 61%,
+    rgba(0, 255, 188, 1) 100%
+  );
   -webkit-backdrop-filter: opacity(10px);
   backdrop-filter: opacity(10px);
 }
 
 .footer .footer-text-item,
-
-.footer .footer-text-item a{
-  text-decoration: none!important;
-  font-size: .8rem;
+.footer .footer-text-item a {
+  text-decoration: none !important;
+  font-size: 0.8rem;
   gap: 1rem;
   color: white;
 }
@@ -232,31 +236,38 @@ body {
 }
 
 .custom-sign-in-btn {
-  background: rgb(9,83,121);
-  background: linear-gradient(90deg, #8b3dff, rgba(0,255,188,1) 100%);
+  background: rgb(9, 83, 121);
+  background: linear-gradient(90deg, #8b3dff, rgba(0, 255, 188, 1) 100%);
   color: white;
   width: 100%;
 }
 
 .custom-phone-btn {
-  background: rgb(93,141,241);
-  background: linear-gradient(90deg, rgba(93,141,241,1) 0%, rgba(15,52,106,1) 100%);
+  background: rgb(93, 141, 241);
+  background: linear-gradient(
+    90deg,
+    rgba(93, 141, 241, 1) 0%,
+    rgba(15, 52, 106, 1) 100%
+  );
   color: white;
 }
 
 .custom-email-btn {
-  background: rgb(241,201,81);
-  background: linear-gradient(90deg, rgba(241,201,81,1) 0%, rgba(221,124,13,1) 100%);
+  background: rgb(241, 201, 81);
+  background: linear-gradient(
+    90deg,
+    rgba(241, 201, 81, 1) 0%,
+    rgba(221, 124, 13, 1) 100%
+  );
   color: white;
 }
-
 
 .password-requirements {
   li.pass {
     color: #158331;
   }
   li.pass:before {
-    content: '✓';
+    content: "✓";
     font-weight: bold;
   }
   li.failed {
@@ -264,7 +275,7 @@ body {
   }
   li.failed:before {
     font-weight: bold;
-    content: 'X'
+    content: "X";
   }
 }
 
@@ -288,4 +299,9 @@ body {
   right: calc(100% - 50px);
   z-index: -1;
   position: absolute;
+}
+
+.custom-container {
+  width: 720px;
+  margin: auto;
 }

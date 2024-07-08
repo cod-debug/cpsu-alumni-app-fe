@@ -12,6 +12,7 @@
         >
             <q-tab name="user-management" icon="group" label="User Management" />
             <q-tab name="course-management" icon="school" label="Course Management" />
+            <q-tab name="nature-of-work-management" icon="work" label="Nature of Work Management" />
         </q-tabs>
         <div>
             <q-card square>
@@ -24,6 +25,9 @@
                 <div v-if="tab === 'course-management'" class="q-px-md">
                     <app-course-index />
                 </div>
+                <div v-if="tab === 'nature-of-work-management'" class="q-px-md">
+                    <app-nature-of-work-index />
+                </div>
             </q-card>
         </div>
     </q-page>
@@ -32,6 +36,7 @@
 <script>
 import UserIndex from './user/UserIndex.vue';
 import CourseIndex from './course/CourseIndex.vue';
+import NatureOfWorkIndex from './nature_of_work/NatureOfWork.vue';
 
 export default {
     data: () => {
@@ -43,6 +48,7 @@ export default {
     components: {
         appUserIndex: UserIndex,
         appCourseIndex: CourseIndex,
+        appNatureOfWorkIndex: NatureOfWorkIndex,
     }
 }
 </script>

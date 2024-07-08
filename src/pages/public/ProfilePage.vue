@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="q-pb-xl">
         <div style="background-color: transparent; width: 720px; max-width: 90%; margin: auto;">
             <q-card-section class="q-px-xl">
                 <q-form @submit.prevent="submitForm">
@@ -87,6 +87,15 @@
                                     :options="course_list" rounded dense />
                                 <app-validation-output property="course" :errors="errors" />
                             </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 q-pr-sm">
+                            <div class="q-py-sm">
+                                <q-select :options="years" @filter="filterFn" use-input outlined v-model="user_data.year_graduated" label="Year Graduated"
+                                    bg-color="grey-2" rounded dense />
+                                <app-validation-output property="year_graduated" :errors="errors" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 q-pr-sm">
                             <div class="q-py-sm">
                                 <q-input outlined v-model="user_data.work" label="Work" bg-color="grey-2" rounded
                                     dense />
@@ -95,14 +104,16 @@
                         </div>
                         <div class="col-md-6 col-sm-12 q-pr-sm">
                             <div class="q-py-sm">
-                                <q-select :options="years" @filter="filterFn" use-input outlined v-model="user_data.year_graduated" label="Year Graduated"
-                                    bg-color="grey-2" rounded dense />
-                                <app-validation-output property="year_graduated" :errors="errors" />
-                            </div>
-                            <div class="q-py-sm">
                                 <q-input v-if="user_data.work" outlined v-model="user_data.work_location"
                                     label="Location" bg-color="grey-2" rounded dense />
                                 <app-validation-output property="work_location" :errors="errors" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 q-pr-sm">
+                            <div class="q-py-sm" v-if="user_data.work">
+                                <q-select outlined v-model="user_data.employment_status" label="Employment Status" bg-color="grey-2"
+                                    :options="['Regular', 'Probationary', 'Contract Service', 'Part-Time']" rounded dense />
+                                <app-validation-output property="employment_status" :errors="errors" />
                             </div>
                         </div>
                     </div>
@@ -110,7 +121,7 @@
                         <div class="col-md-6 col-sm-12 q-pr-sm">
                             <div class="flex justify-center items-center" v-if="!isUpdate">
                                 <div class="form-avatar-holder">
-                                    <img src="~assets/images/avatar-placeholder.png" id="previewImg" />
+                                    <img src="~assets/images/avatar-placeholder.png" alt="avatar placeholder" id="previewImg" />
                                 </div>
                                 <div class="q-px-md">
                                     <div class="select-photo-button text-center">
@@ -174,7 +185,7 @@ export default {
     methods: {
         async submitForm() {
             try {
-                this.user_data.employment_status = this.user_data.work ? "employed" : "unemployed";
+                this.user_data.employment_status = this.user_data.employment_status;
                 this.user_data.course_id = this.user_data.course_id.id;
                 let formData = this.$helper.jsonToFormData(this.user_data);
                 this.is_submitting = true;

@@ -23,12 +23,15 @@
                             <q-icon name="more_horiz" />
                         </div>
                     </div>
-                    
                     <app-mini-message v-for="(item, key) in messages" :key="key" :avatar="item.avatar_url" :name="`${item.sender.first_name} ${item.sender.last_name}`" :message="`${item.message}`"
                         :time_ago="$helper.timeSince(item.created_at)" />
                     <q-separator />
-                    <div class="q-pt-md text-center">
-                        <q-btn flat class="text-accent text-bold" :to="{ name: 'message' }">Show All</q-btn>
+                    
+                    <div class="bg-red-2 text-red-6 q-pa-sm q-mt-md" v-if="!is_loading_messages && messages.length === 0">
+                        <q-icon name="info" /> No messages received yet.
+                    </div>
+                    <div class="q-pt-md text-center" v-if="!is_loading_messages">
+                        <q-btn flat class="text-accent text-bold" :to="{ name: 'message' }" :disable="messages.length === 0">Show All</q-btn>
                     </div>
                 </q-card-section>
             </q-card>

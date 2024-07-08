@@ -1,6 +1,6 @@
 <template>
     <div class="chatbox--holder" v-if="logged_in_user">
-        <q-btn class="chatbox--button" icon="chat" color="secondary" rounded style="aspect-ratio: 1/1;" @click="show_chats = !show_chats" />
+        <q-btn class="chatbox--button" :icon="show_chats ? 'close' : 'chat'" :color="show_chats ? 'grey-8' : 'secondary'" rounded style="aspect-ratio: 1/1;" @click="show_chats = !show_chats" />
         <div class="chatbox--main" v-if="show_chats">
             <q-card style="height: 100%;">
                 <div v-if="!selected_chat" class="q-pa-sm text-white bg-primary">

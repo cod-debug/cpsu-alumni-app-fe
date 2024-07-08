@@ -90,12 +90,9 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-12 q-pr-sm">
                                 <div class="q-py-sm">
-                                    <q-select outlined v-model="user_data.course_id"
-                                        option-label="course_name"
-                                        option-value="id" 
-                                        label="Course" 
-                                        bg-color="grey-2"
-                                        :options="course_list" rounded dense />
+                                    <q-select outlined v-model="user_data.course_id" option-label="course_name"
+                                        option-value="id" label="Course" bg-color="grey-2" :options="course_list"
+                                        rounded dense />
                                     <app-validation-output property="course" :errors="errors" />
                                 </div>
                                 <div class="q-py-sm">
@@ -114,6 +111,15 @@
                                     <q-input v-if="user_data.work" outlined v-model="user_data.work_location"
                                         label="Location" bg-color="grey-2" rounded dense />
                                     <app-validation-output property="work_location" :errors="errors" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 q-pr-sm">
+                                <div class="q-py-sm" v-if="user_data.work">
+                                    <q-select outlined v-model="user_data.employment_status" label="Employment Status"
+                                        bg-color="grey-2"
+                                        :options="['Regular', 'Probationary', 'Contract Service', 'Part-Time']" rounded
+                                        dense />
+                                    <app-validation-output property="employment_status" :errors="errors" />
                                 </div>
                             </div>
                         </div>
@@ -183,7 +189,7 @@ export default {
     methods: {
         async submitForm() {
             try {
-                this.user_data.employment_status = this.user_data.work ? "employed" : "unemployed";
+                this.user_data.employment_status = this.user_data.employment_status;
                 this.user_data.course_id = this.user_data.course_id.id;
                 let formData = this.$helper.jsonToFormData(this.user_data);
                 this.is_submitting = true;
@@ -261,11 +267,11 @@ export default {
 
             if ([200, 201].includes(status)) {
                 this.course_list = data.data.data;
-                
+
                 this.user_data.course_id = data.data.data.filter((i) => {
                     return i.id == this.user_data.course_id;
                 })[0];
-                
+
             } else {
                 this.errors = data.errors;
                 Notify.create({
@@ -292,28 +298,28 @@ export default {
 
         vm.getCourseList();
         // gn butang ko lang para di kapoy mag type while ga test haha
-        
-        // vm.user_data = {
-        //     "first_name": "Roy",
-        //     "middle_name": "Gualdrapa",
-        //     "last_name": "Duenas",
-        //     "gender": "Male",
-        //     "birthdate": "1999-6-13",
-        //     "contact_number": "+639633205624",
-        //     "street": "Purok Santan",
-        //     "barangay": "Manalad",
-        //     "municipality": "Ilog",
-        //     "province": "Negros Occidental",
-        //     "zip_code": "6109",
-        //     "email": "quensed@gmail.com",
-        //     "course": "BSIT",
-        //     "year_graduated": "2019",
-        //     "employment_status": "employed",
-        //     "work": "Web Developer",
-        //     "work_location": "Ingenuiti",
-        //     "avatar": "",
-        //     "status": "active"
-        // }
+
+        vm.user_data = {
+            "first_name": "Roy",
+            "middle_name": "Gualdrapa",
+            "last_name": "Duenas",
+            "gender": "Male",
+            "birthdate": "1999-6-13",
+            "contact_number": "+639633205624",
+            "street": "Purok Santan",
+            "barangay": "Manalad",
+            "municipality": "Ilog",
+            "province": "Negros Occidental",
+            "zip_code": "6109",
+            "email": "quensed@gmail.com",
+            "course": "BSIT",
+            "year_graduated": "2019",
+            "employment_status": "employed",
+            "work": "Web Developer",
+            "work_location": "Ingenuiti",
+            "avatar": "",
+            "status": "active"
+        }
         if (!this.isUpdate) {
             document.getElementById('avatarLogo').addEventListener('change', function (event) {
                 const file = event.target.files[0];
