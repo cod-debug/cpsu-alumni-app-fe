@@ -61,7 +61,7 @@
                                     Showing {{ nature_of_work_table.from }} to {{ nature_of_work_table.to }} of {{ nature_of_work_table.total }}
                                 </div>
                                 <q-pagination v-model="nature_of_work_table.current_page" @update:model-value="getList()"
-                                    :max="nature_of_work_table.max_page" direction-links flat color="grey"
+                                    :max="nature_of_work_table.max_page" direction-links flat color="grey" :max-pages="5"
                                     active-color="primary" />
                             </div>
                         </div>

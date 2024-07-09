@@ -61,7 +61,7 @@
                                     Showing {{ course_table.from }} to {{ course_table.to }} of {{ course_table.total }}
                                 </div>
                                 <q-pagination v-model="course_table.current_page" @update:model-value="getList()"
-                                    :max="course_table.max_page" direction-links flat color="grey"
+                                    :max="course_table.max_page" direction-links flat color="grey" :max-pages="5"
                                     active-color="primary" />
                             </div>
                         </div>

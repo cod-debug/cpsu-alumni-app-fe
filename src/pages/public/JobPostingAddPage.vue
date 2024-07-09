@@ -2,8 +2,14 @@
     <div class="q-mt-lg q-mb-xl">
         <div class="custom-container">
             <q-form class="shadow-2 q-pa-md q-pt-lg" @submit.prevent="postJob" greedy ref="post_job_form">
-
-                <div class="text-h5 text-grey-8">{{ isUpdate ? "Update" : "Post" }} a Job</div>
+                <div class="flex justify-between items-center">
+                    <div class="text-h5 text-grey-8">{{ isUpdate ? "Update" : "Post" }} a Job</div>
+                    <q-btn v-if="isUpdate" type="button" icon="delete" color="red-12" class="q-px-md" @click="deleteJob" dense>
+                        <q-tooltip>
+                            Delete Job
+                        </q-tooltip>
+                    </q-btn>
+                </div>
                 <q-separator class="q-my-sm" />
                 <div class="q-px-sm q-py-xs">
                     <q-input label-color="teal" outlined v-model="job_posting_payload.company_name" dense
@@ -40,17 +46,18 @@
                         :rules="[val => val && val.length > 0 || 'This field is required.']" />
                 </div>
                 <div class="q-px-sm q-py-xs text-right">
-
                     <q-btn type="button" :to="{ name: 'job-posting-page' }" label="Cancel" class="q-mx-sm" />
                     <q-btn type="submit" :label="isUpdate ? 'Update' : 'Post'" icon="check" color="teal" />
                 </div>
             </q-form>
+            <app-confirm-delete-job-modal ref="confirm_delete_modal" :job_posting_id="selected_job_id" />
         </div>
     </div>
 </template>
 
 <script>
 import { Notify } from 'quasar';
+import ConfirmDeleteJobModal from './modals/ConfirmDeleteJobModal.vue';
 export default {
     data() {
         return {
@@ -91,7 +98,13 @@ export default {
 
                 this.is_loading = true;
 
-                let { data, status } = await this.$store.dispatch('job_posting/create', payload);
+                let endpoint = 'job_posting/create';
+                if(this.isUpdate){
+                    endpoint = 'job_posting/update'
+                    payload.id = this.selected_job_id
+                }
+
+                let { data, status } = await this.$store.dispatch(endpoint, payload);
                 if ([200, 201].includes(status)) {
                     Notify.create({
                         message: data.message,
@@ -141,12 +154,18 @@ export default {
                     this.$router.push({ name: 'job-posting-page' });
                 }
             }
+        },
+        async deleteJob(){
+            this.$refs.confirm_delete_modal.openDeleteJobModal();
         }
     },
     computed: {
         isUpdate() {
             return this.$route.params.id;
         }
+    },
+    components: {
+        appConfirmDeleteJobModal: ConfirmDeleteJobModal,
     }
 }
 </script>

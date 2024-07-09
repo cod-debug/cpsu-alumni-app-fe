@@ -7,7 +7,7 @@
             </div>
             <q-form class="shadow-2 q-pa-md q-pt-lg row bg-white" @submit.prevent="submitSearch" ref="search_form">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 q-pa-sm">
-                    <q-select :options="natures_of_work_options" option-value="id" option-label="nature_of_work"
+                    <q-select :options="natures_of_work_options" option-label="nature_of_work"
                         label-color="teal" v-model="nature_of_work_id" label="Nature of work" outlined />
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 q-pa-sm">
@@ -55,7 +55,7 @@
                                             <q-tooltip>Edit job details</q-tooltip>
                                         </q-btn>
                                     </div>
-                                    <div v-if="job.description" class="q-pb-md text-grey-9 q-mr-md">
+                                    <div v-if="job.description" class="q-pb-md text-grey-9 q-pr-xl">
                                         <span v-html="job.description.replaceAll('\n', '<br />')"></span>
                                     </div>
                                     <div v-if="job.location" class="text-grey-8">
@@ -70,6 +70,19 @@
                             </q-card>
                         </q-expansion-item>
                         <q-separator />
+                    </div>
+                    
+
+
+                    <div class="text-right q-mt-md row justify-between items-center"
+                        v-if="job_table.max_page > 0">
+                        <div class="text-caption text-grey-9">
+                            Showing {{ job_table.from }} to {{ job_table.to }} of {{ job_table.total }}
+                        </div>
+                        <q-pagination v-model="job_table.current_page" @update:model-value="getList()"
+                            :max="job_table.max_page" direction-links flat color="grey"
+                            :max-pages="5"
+                            active-color="primary" />
                     </div>
                 </q-card-section>
                 <q-card-section v-else>

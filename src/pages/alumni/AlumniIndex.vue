@@ -108,6 +108,7 @@
                                             :max="alumni_table.max_page"
                                             direction-links
                                             flat
+                                            :max-pages="5"
                                             color="grey"
                                             active-color="primary" />
                         </div>

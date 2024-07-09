@@ -67,7 +67,7 @@
                                     Showing {{ admin_table.from }} to {{ admin_table.to }} of {{ admin_table.total }}
                                 </div>
                                 <q-pagination v-model="admin_table.current_page" @update:model-value="getList()"
-                                    :max="admin_table.max_page" direction-links flat color="grey"
+                                    :max="admin_table.max_page" direction-links flat color="grey" :max-pages="5"
                                     active-color="primary" />
                             </div>
                         </div>
