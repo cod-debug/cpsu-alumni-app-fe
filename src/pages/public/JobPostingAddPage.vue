@@ -78,12 +78,12 @@ export default {
             erros: [],
         }
     },
-    mounted() {
-        this.getAllNatureOfWork();
+    async mounted() {
+        await this.getAllNatureOfWork();
         if (this.$route.params.id) {
             this.selected_job_id = atob(this.$route.params.id);
+            this.getOne();
         }
-        this.getOne();
     },
     methods: {
         async validate(evt) {
