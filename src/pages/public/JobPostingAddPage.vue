@@ -2,6 +2,12 @@
     <div class="q-mt-lg q-mb-xl">
         <div class="custom-container">
             <q-form class="shadow-2 q-pa-md q-pt-lg" @submit.prevent="postJob" greedy ref="post_job_form">
+                <q-inner-loading
+                    :showing="is_loading"
+                    label="Please wait..."
+                    label-class="text-teal"
+                    label-style="font-size: 1.1em"
+                />
                 <div class="flex justify-between items-center">
                     <div class="text-h5 text-grey-8">{{ isUpdate ? "Update" : "Post" }} a Job</div>
                     <q-btn v-if="isUpdate" type="button" icon="delete" color="red-12" class="q-px-md" @click="deleteJob" dense>
@@ -135,6 +141,8 @@ export default {
         },
         async getOne() {
             let vm = this;
+
+            this.is_loading = true;
             let { data, status } = await this.$store.dispatch('job_posting/getOne', this.selected_job_id);
 
             if ([200, 201].includes(status)) {
@@ -154,6 +162,7 @@ export default {
                     this.$router.push({ name: 'job-posting-page' });
                 }
             }
+            this.is_loading = false;
         },
         async deleteJob(){
             this.$refs.confirm_delete_modal.openDeleteJobModal();
