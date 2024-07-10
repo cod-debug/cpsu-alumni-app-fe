@@ -8,7 +8,7 @@
                     <div class="text-caption">connect with other alumni</div>
                 </div>
                 <q-separator />
-                <q-card-section  v-if="!selected_chat">
+                <q-card-section  v-if="!selected_chat" style="max-height: 82%; overflow: auto;">
                     <div style="height: 100%; overflow: auto;">
                         <q-inner-loading
                             :showing="is_loading_users"
