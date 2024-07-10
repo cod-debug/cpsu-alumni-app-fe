@@ -6,11 +6,11 @@
                     color="blue-4" />
             </div>
             <q-form class="shadow-2 q-pa-md q-pt-lg row bg-white" @submit.prevent="submitSearch" ref="search_form">
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 q-pa-sm">
+                <div class="col-12 col-md-6 col-lg-6 col-xl-6 q-pa-sm">
                     <q-select :options="natures_of_work_options" option-label="nature_of_work"
                         label-color="teal" v-model="nature_of_work_id" label="Nature of work" outlined />
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 q-pa-sm">
+                <div class="col-12 col-md-6 col-lg-6 col-xl-6 q-pa-sm">
                     <q-input color="grey-3" label-color="teal" outlined v-model="search_keyword" label="Search Job">
                         <template v-slot:append>
                             <q-btn flat type="submit" @click="submitSearch">
