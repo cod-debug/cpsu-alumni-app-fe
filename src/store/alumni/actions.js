@@ -99,3 +99,20 @@ export const getCountPerYear = async ({ commit }, payload) => {
   }
   return res;
 };
+
+export const getCountByGender = async ({ commit }, payload) => {
+  let res = {};
+  headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+
+  try {
+    res = await axios({
+      method: "get",
+      url: `${API_BASE_URL}/${prefix}/users/count-by-gender`,
+      headers: headers,
+    });
+  } catch (e) {
+    res.data = e.response.data;
+    res.status = e.response.status;
+  }
+  return res;
+};
