@@ -1,6 +1,6 @@
 <template>
     <div>
-        <q-toolbar class="q-py-md toolbar">
+        <q-toolbar class="q-py-md toolbar" id="headerNav">
             <q-item stretch flat class="items-center">
                 <img alt="Quasar logo" src="~assets/logo.png" style="width: 60px;">
                 <div class="text-normal text-bold">CPSU GRADUATE SCHOOL ALUMNI</div>
@@ -98,6 +98,18 @@ export default {
                 }
             );
         }
+
+        window.document.addEventListener("scroll", () => {
+            const headerNav = document.getElementById("headerNav");
+            headerNav.style.transition = ".3s ease-in-out all";
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                headerNav.style.backgroundColor = "white";
+                headerNav.style.boxShadow = "0px 2px 4px darkgray";
+            } else {
+                headerNav.style.backgroundColor = "transparent";
+                headerNav.style.boxShadow = "unset";
+            }
+        });
     },
     components: {
         appAlumniChatBox: AlumniChatBox,

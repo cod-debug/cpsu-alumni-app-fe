@@ -83,7 +83,7 @@ export const getOne = async ({ commit }, payload) => {
   return res;
 };
 
-export const getCountPerYear = async ({ commit }, payload) => {
+export const getCountPerYear = async ({ commit }) => {
   let res = {};
   headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
 
@@ -100,7 +100,7 @@ export const getCountPerYear = async ({ commit }, payload) => {
   return res;
 };
 
-export const getCountByGender = async ({ commit }, payload) => {
+export const getCountByGender = async ({ commit }) => {
   let res = {};
   headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
 
@@ -116,3 +116,22 @@ export const getCountByGender = async ({ commit }, payload) => {
   }
   return res;
 };
+
+export const getCountByEmploymentStatus = async ({ commit }) => {
+  let res = {};
+  headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+
+  try {
+    res = await axios({
+      method: "get",
+      url: `${API_BASE_URL}/${prefix}/users/count-by-employment-status`,
+      headers: headers,
+    });
+  } catch (e) {
+    res.data = e.response.data;
+    res.status = e.response.status;
+  }
+  return res;
+};
+
+

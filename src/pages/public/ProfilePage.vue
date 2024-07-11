@@ -2,7 +2,7 @@
     <div class="q-pb-xl">
         <div style="background-color: transparent; width: 720px; max-width: 90%; margin: auto;">
             <q-card-section class="q-px-xl">
-                <q-form @submit.prevent="submitForm">
+                <q-form @submit.prevent="submitForm" :disable="is_loading">
                     <div>
                         <strong>Personal Information</strong>
                     </div>
@@ -14,13 +14,13 @@
                                 <app-validation-output property="last_name" :errors="errors" />
                             </div>
                             <div class="q-py-sm">
-                                <q-input outlined v-model="user_data.first_name" label="First Name"
-                                    bg-color="grey-2" rounded dense />
+                                <q-input outlined v-model="user_data.first_name" label="First Name" bg-color="grey-2"
+                                    rounded dense />
                                 <app-validation-output property="first_name" :errors="errors" />
                             </div>
                             <div class="q-py-sm">
-                                <q-input outlined v-model="user_data.middle_name" label="Middle Name"
-                                    bg-color="grey-2" rounded dense />
+                                <q-input outlined v-model="user_data.middle_name" label="Middle Name" bg-color="grey-2"
+                                    rounded dense />
                                 <app-validation-output property="middle_name" :errors="errors" />
                             </div>
                             <div class="q-py-sm">
@@ -41,8 +41,8 @@
                         </div>
                         <div class="col-md-6 col-sm-12 q-pl-sm">
                             <div class="q-py-sm">
-                                <q-input outlined v-model="user_data.street" label="Street" bg-color="grey-2"
-                                    rounded dense />
+                                <q-input outlined v-model="user_data.street" label="Street" bg-color="grey-2" rounded
+                                    dense />
                                 <app-validation-output property="street" :errors="errors" />
                             </div>
                             <div class="q-py-sm">
@@ -79,19 +79,17 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12 q-pr-sm">
                             <div class="q-py-sm">
-                                <q-select outlined v-model="user_data.course_id"
-                                    option-label="course_name"
-                                    option-value="id" 
-                                    label="Course" 
-                                    bg-color="grey-2"
-                                    :options="course_list" rounded dense />
+                                <q-select outlined v-model="user_data.course_id" option-label="course_name"
+                                    option-value="id" label="Course" bg-color="grey-2" :options="course_list" rounded
+                                    dense />
                                 <app-validation-output property="course" :errors="errors" />
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 q-pr-sm">
                             <div class="q-py-sm">
-                                <q-select :options="years" @filter="filterFn" use-input outlined v-model="user_data.year_graduated" label="Year Graduated"
-                                    bg-color="grey-2" rounded dense />
+                                <q-select :options="years" @filter="filterFn" use-input outlined
+                                    v-model="user_data.year_graduated" label="Year Graduated" bg-color="grey-2" rounded
+                                    dense />
                                 <app-validation-output property="year_graduated" :errors="errors" />
                             </div>
                         </div>
@@ -111,8 +109,10 @@
                         </div>
                         <div class="col-md-6 col-sm-12 q-pr-sm">
                             <div class="q-py-sm" v-if="user_data.work">
-                                <q-select outlined v-model="user_data.employment_status" label="Employment Status" bg-color="grey-2"
-                                    :options="['Regular', 'Probationary', 'Contract Service', 'Part-Time']" rounded dense />
+                                <q-select outlined v-model="user_data.employment_status" label="Employment Status"
+                                    bg-color="grey-2"
+                                    :options="['Regular', 'Probationary', 'Contract Service', 'Part-Time']" rounded
+                                    dense />
                                 <app-validation-output property="employment_status" :errors="errors" />
                             </div>
                         </div>
@@ -121,28 +121,26 @@
                         <div class="col-md-6 col-sm-12 q-pr-sm">
                             <div class="flex justify-center items-center" v-if="!isUpdate">
                                 <div class="form-avatar-holder">
-                                    <img src="~assets/images/avatar-placeholder.png" alt="avatar placeholder" id="previewImg" />
+                                    <img src="~assets/images/avatar-placeholder.png" alt="avatar placeholder"
+                                        id="previewImg" />
                                 </div>
                                 <div class="q-px-md">
                                     <div class="select-photo-button text-center">
                                         <label for="avatarLogo">
                                             <span class="text-grey-6">Select Photo</span>
                                             <br />
-                                            <div type="button" rounded dense color="primary"
-                                                class="upload-photo-btn">
+                                            <div type="button" rounded dense color="primary" class="upload-photo-btn">
                                                 Upload Photo
                                             </div>
                                         </label>
-                                        <input type="file" accept="image/*" style="display: none;"
-                                            id="avatarLogo" />
+                                        <input type="file" accept="image/*" style="display: none;" id="avatarLogo" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 q-pr-sm">
                             <div class="q-py-sm text-right">
-                                <q-btn color="secondary" label="Save" rounded class="q-px-lg q-py-sm"
-                                    type="submit" />
+                                <q-btn color="secondary" label="Save" rounded class="q-px-lg q-py-sm" type="submit" />
                             </div>
                         </div>
                     </div>
@@ -207,7 +205,7 @@ export default {
                         timeout: 3000,
                     });
                     this.is_submitting = false;
-                
+
                     this.user_data.course_id = this.course_list.filter((i) => {
                         return i.id == this.user_data.course_id;
                     })[0];
@@ -265,11 +263,11 @@ export default {
 
             if ([200, 201].includes(status)) {
                 this.course_list = data.data.data;
-                
+
                 this.user_data.course_id = data.data.data.filter((i) => {
                     return i.id == this.user_data.course_id;
                 })[0];
-                
+
             } else {
                 this.errors = data.errors;
                 Notify.create({
@@ -291,12 +289,12 @@ export default {
 
             let current_year = new Date().getFullYear();
             let limit = current_year - 100;
-            for(var i = current_year; limit <= i; i--){
+            for (var i = current_year; limit <= i; i--) {
                 this.years.push(i)
                 this.years_unfiltered.push(i)
             }
         },
-        filterFn (val, update) {
+        filterFn(val, update) {
             let vm = this;
             if (val === '') {
                 update(() => {
@@ -313,8 +311,8 @@ export default {
     },
 
     mounted() {
-        if(!localStorage.getItem('token')){
-            this.$router.push({name: 'home-page'});
+        if (!localStorage.getItem('token')) {
+            this.$router.push({ name: 'home-page' });
         }
         let vm = this;
 
