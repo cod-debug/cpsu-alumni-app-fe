@@ -5,67 +5,62 @@
             <q-btn color="teal" dense class="q-px-md">Tabular Reports</q-btn>
         </div>
         <div class="row">
+            
             <div class="col-12 col-md-8 q-px-sm q-py-xs">
-                <q-card class="q-mt-md bg-white q-pa-lg">
-                    <q-inner-loading :showing="is_loading_gender_count" label="Please wait..." label-class="text-teal"
+                <q-card class="q-mt-md bg-white">
+                    <q-inner-loading :showing="is_loading_employment_status_count" label="Please wait..." label-class="text-teal"
                         label-style="font-size: 1.1em" />
-                    <div class="flex">
-                        <div>
-                            <span v-for="(gender, key) in count_by_gender" :key="key"
-                                style="display: inline-block; box-shadow: 2px 2px 2px lightgray;"
-                                class="q-py-lg q-mx-sm">
-                                <div class="q-px-lg text-center" style="width: fit-content;">
-                                    <div class="text-h3"
-                                        style="border: 1px solid lightgray; border-radius: .3rem; rotate: 45deg;">
-                                        <q-icon :name="gender.gender.toLowerCase()"
-                                            :color="gender.gender.toLowerCase() === 'male' ? 'blue-4' : 'pink-4'"
-                                            style="rotate: -45deg;" />
-                                    </div>
-                                    <div class="text-grey-8 q-mt-sm">
-                                        <span class="text-h4">{{ $helper.formatNumber(gender.count) }}</span>
-                                        <div class="text-caption">{{ gender.gender }}</div>
-                                    </div>
-                                </div>
-                            </span>
+                    <q-card-section>
+                        <div class="text-h5">
+                            Employment Status
                         </div>
-                        <div>
-                            <span style="display: inline-block; box-shadow: 2px 2px 2px lightgray;"
-                                class="q-py-lg q-mx-sm" v-if="count_by_employment_status">
-                                <div class="q-px-lg text-center" style="width: fit-content;">
-                                    <div class="text-h3" style="border: 1px solid lightgray; border-radius: .3rem;">
-                                        <q-icon name="work" color="green-4" />
-                                    </div>
-                                    <div class="text-grey-8 q-mt-sm">
-                                        <span class="text-h4">{{
-                        $helper.formatNumber(count_by_employment_status.users_with_work)
-                    }}</span>
-                                        <div class="text-caption">Employed</div>
-                                    </div>
-                                </div>
-                            </span>
-                            <span style="display: inline-block; box-shadow: 2px 2px 2px lightgray;"
-                                class="q-py-lg q-mx-sm" v-if="count_by_employment_status">
-                                <div class="q-px-lg text-center" style="width: fit-content;">
-                                    <div class="text-h3" style="border: 1px solid lightgray; border-radius: .3rem;">
-                                        <q-icon name="work_off" color="grey-6" />
-                                    </div>
-                                    <div class="text-grey-8 q-mt-sm">
-                                        <span class="text-h4">{{
-                        $helper.formatNumber(count_by_employment_status.users_without_work)
-                    }}</span>
-                                        <div class="text-caption">Unemployed</div>
-                                    </div>
-                                </div>
-                            </span>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <div id="pieChartEmployment"></div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section v-if="!is_loading_employment_status_count">
+                        <div class="flex justify-between">
+                            <div class="">
+                                <div class="text-grey-7">Employed:</div> 
+                                <div class="text-h4 text-blue">{{ $helper.formatNumber(count_by_employment_status?.users_with_work || 0) }}</div>
+                            </div>
+                            <div class="">
+                                <div class="text-grey-7">Unemployed:</div> 
+                                <div class="text-h4 text-green-3 text-right">{{ $helper.formatNumber(count_by_employment_status?.users_without_work || 0) }}</div>
+                            </div>
                         </div>
-                    </div>
+                    </q-card-section>
                 </q-card>
             </div>
             <div class="col-12 col-md-4 q-px-sm q-py-xs">
-                <div class="q-mt-md">
-                    <app-total-count-div title="Total User" icon="group" :count="total_graduates"
-                        :is_loading="is_loading_gender_count" />
-                </div>
+                <q-card class="q-mt-md bg-white">
+                    <q-inner-loading :showing="is_loading_employment_status_count" label="Please wait..." label-class="text-teal"
+                        label-style="font-size: 1.1em" />
+                    <q-card-section>
+                        <div class="text-h5">
+                            Gender
+                        </div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <div id="donutChartGender"></div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section v-if="!is_loading_employment_status_count">
+                        <div class="flex justify-between">
+                            <div class="">
+                                <div class="text-grey-7">Male:</div> 
+                                <div class="text-h4 text-blue">{{ $helper.formatNumber(count_by_gender[1]?.count || 0) }}</div>
+                            </div>
+                            <div class="">
+                                <div class="text-grey-7">Female:</div> 
+                                <div class="text-h4 text-green-3 text-right">{{ $helper.formatNumber(count_by_gender[0]?.count || 0) }}</div>
+                            </div>
+                        </div>
+                    </q-card-section>
+                </q-card>
             </div>
         </div>
 
@@ -94,12 +89,12 @@
 
 <script>
 import ApexCharts from 'apexcharts';
-import TotalCountDiv from "components/general/TotalCount.vue"
 export default {
     data: () => {
         return {
             is_loading_count: false,
             is_loading_gender_count: false,
+            is_loading_employment_status_count: false,
             barChartOptions: {
                 chart: {
                     height: 350,
@@ -179,6 +174,32 @@ export default {
                 }
             },
 
+            pieChartOptionsEmployment: {
+                chart: {
+                    type: 'pie',
+                    height: 350,
+                },
+                series: [],
+                labels: ['Employed', 'Unemployed'],
+                plotOptions: {
+                    pie: {
+                        expandOnClick: true
+                    }
+                }
+            },
+            donutChartOptionsGender: {
+                chart: {
+                    type: 'donut',
+                    height: 360,
+                },
+                series: [],
+                labels: ['Male', 'Female'],
+                plotOptions: {
+                    pie: {
+                        expandOnClick: true
+                    }
+                }
+            },
             count_by_gender: [],
             count_by_employment_status: null,
         }
@@ -215,6 +236,9 @@ export default {
 
                 if ([200, 201].includes(status)) {
                     this.count_by_gender = data;
+                    this.donutChartOptionsGender.series[1] = data[0].count;
+                    this.donutChartOptionsGender.series[0] = data[1].count;
+                    this.renderChart();
                 }
 
                 this.is_loading_gender_count = false;
@@ -225,15 +249,18 @@ export default {
 
         async getCountByEmploymentStatus() {
             try {
-                this.is_loading_gender_count = true;
+                this.is_loading_employment_status_count = true;
 
                 let { data, status } = await this.$store.dispatch('alumni/getCountByEmploymentStatus');
 
                 if ([200, 201].includes(status)) {
                     this.count_by_employment_status = data;
+                    this.pieChartOptionsEmployment.series[0] = data.users_with_work;
+                    this.pieChartOptionsEmployment.series[1] = data.users_without_work;
+                    this.renderChart();
                 }
 
-                this.is_loading_gender_count = false;
+                this.is_loading_employment_status_count = false;
             } catch (e) {
                 console.log(e);
             }
@@ -246,7 +273,15 @@ export default {
 
             document.querySelector("#barChart").innerHTML = "";
             let barChart = new ApexCharts(document.querySelector("#barChart"), this.barChartOptions);
-
+            
+            document.querySelector("#pieChartEmployment").innerHTML = "";
+            let pieChartEmployment = new ApexCharts(document.querySelector("#pieChartEmployment"), this.pieChartOptionsEmployment);
+            
+            document.querySelector("#donutChartGender").innerHTML = "";
+            let donutChartGender = new ApexCharts(document.querySelector("#donutChartGender"), this.donutChartOptionsGender);
+            
+            donutChartGender.render();
+            pieChartEmployment.render();
             chart.render();
             barChart.render();
         },
@@ -259,9 +294,6 @@ export default {
     },
     mounted() {
         this.initApp();
-    },
-    components: {
-        appTotalCountDiv: TotalCountDiv,
     },
     computed: {
         total_graduates() {
